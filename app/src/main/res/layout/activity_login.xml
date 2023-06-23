@@ -17,13 +17,14 @@
         android:layout_marginTop="310dp"
         android:layout_marginEnd="18dp"
         android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/email"
+        android:drawableStart="@drawable/email"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:textAlignment="viewStart"
-        android:textColorHint="#000000" />
+        android:textColorHint="#000000"
+        android:autofillHints="Email" />
 
 
     <EditText
@@ -43,8 +44,6 @@
         android:drawableLeft="@drawable/password"
         android:textAlignment="viewStart"
         android:textColorHint="#000000" />
-
-
 
     <Button
         android:id="@+id/login_button"
@@ -74,7 +73,7 @@
         android:textSize="14sp" /> />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/no_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -83,4 +82,52 @@
         android:layout_marginEnd="71dp"
         android:layout_marginBottom="123dp"
         android:text="Don't have an Account? Create an Account " />
+
+    <TextView
+        android:id="@+id/connect_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="98dp"
+        android:text="or Log In with " />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/connect_account">
+
+        </LinearLayout>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="92dp"
+        android:layout_marginBottom="37dp"
+        android:src="@drawable/facebook" />
+
+    <ImageView
+        android:layout_width="72dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="261dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/google" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="177dp"
+        android:layout_marginBottom="29dp"
+        android:src="@drawable/twitter" />
+
+
 </RelativeLayout>
