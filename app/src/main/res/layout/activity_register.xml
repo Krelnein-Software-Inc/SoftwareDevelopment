@@ -71,7 +71,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/terms_and_conditions"
         android:layout_width="147dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
