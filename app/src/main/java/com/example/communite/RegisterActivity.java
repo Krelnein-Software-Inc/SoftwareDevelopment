@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -76,21 +75,12 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                SendUserToSetupActivity();
-
                                 Toast.makeText(RegisterActivity.this, "You are Authenticated successfully!", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             } else {
                                 String message = task.getException().getMessage();
                                 Toast.makeText(RegisterActivity.this, "error Occurred: " + message, Toast.LENGTH_SHORT).show();
                             }
-                        }
-
-                        private void SendUserToSetupActivity() {
-                            Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
-                            setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(setupIntent);
-                            finish();
                         }
                     });
                 }

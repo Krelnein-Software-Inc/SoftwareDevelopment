@@ -107,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
         } else if (itemId == R.id.nav_Logout) {
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+            mAuth.signOut();
+            SendUserToLoginActivity();
         }
 
     }
