@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="310dp"
+        android:layout_marginTop="350dp"
         android:layout_marginEnd="18dp"
         android:background="@drawable/inputs"
         android:drawableStart="@drawable/email"
@@ -33,15 +32,15 @@
         android:layout_height="64dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginBottom="269dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="350dp"
         android:background="@drawable/inputs"
+        android:drawableLeft="@drawable/password"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="10dp"
-        android:drawableLeft="@drawable/password"
         android:textAlignment="viewStart"
         android:textColorHint="#000000" />
 
@@ -51,7 +50,7 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="154dp"
+        android:layout_marginBottom="231dp"
         android:text="Log In"
         android:textAlignment="center"
         android:textSize="20sp" />
@@ -63,14 +62,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="249dp"
-        android:layout_marginBottom="234dp"
+        android:layout_marginEnd="255dp"
+        android:layout_marginBottom="319dp"
         android:backgroundTint="#002AA6"
         android:ems="10"
         android:gravity="start|top"
         android:text="Forgot Password"
         android:textColorHint="#001CA8"
-        android:textSize="14sp" /> />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/register_account_link"
@@ -79,8 +78,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="71dp"
-        android:layout_marginBottom="123dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="191dp"
         android:text="Don't have an Account? Create an Account " />
 
     <TextView
@@ -90,11 +89,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="98dp"
+        android:layout_marginEnd="161dp"
+        android:layout_marginBottom="160dp"
         android:text="or Log In with " />
 
-        <LinearLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -108,8 +107,8 @@
         android:layout_height="45dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="92dp"
-        android:layout_marginBottom="37dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginBottom="95dp"
         android:src="@drawable/facebook" />
 
     <ImageView
@@ -118,8 +117,8 @@
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="261dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="257dp"
+        android:layout_marginBottom="97dp"
         android:src="@drawable/google" />
 
     <ImageView
@@ -128,9 +127,9 @@
         android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="177dp"
-        android:layout_marginBottom="29dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="173dp"
+        android:layout_marginBottom="88dp"
         android:src="@drawable/twitter" />
-
 
 </RelativeLayout>
