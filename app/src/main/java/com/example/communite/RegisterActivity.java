@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -39,10 +41,19 @@ public class RegisterActivity extends AppCompatActivity {
 
         CreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                CreateNewAccount();
+            public void onClick (View v) { CreateNewAccount();
             }
+
+            protected void onStart() {
+
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+
+                if (currentUser != null) {
+                    SendUserToMainActivity();
+                }
+            }
+
+
 
             private void CreateNewAccount() {
                 String email = UserEmail.getText().toString();
@@ -63,7 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
                 else if (!password.equals(confirmPassword))
                 {
                     Toast.makeText(RegisterActivity.this, "Your password do not match with your confirm password", Toast.LENGTH_SHORT).show();
-                } else {
+                } else
+                {
                     loadingBar.setTitle("Creating New Account");
                     loadingBar.setMessage("Please wait while we are creating your new account");
                     loadingBar.show();
@@ -86,8 +98,16 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         })
-        
-;}
+
+        ;}
+
+    private void SendUserToMainActivity()
+    {
+        Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+        mainIntent.addFlags(mainIntent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+
+    }
 
     private void addOnCompleteListener(OnCompleteListener<AuthResult> authResultOnCompleteListener) {
     }

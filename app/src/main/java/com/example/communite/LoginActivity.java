@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -65,6 +66,19 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     ;}
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null)
+        {
+            SendUserToMainActivity();
+        }
+    }
+
+
 
     private void AllowingUserToLogin() {
         String email = UserEmail.getText().toString();
@@ -72,12 +86,12 @@ public class LoginActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email))
         {
-            Toast.makeText(this, "Please enter your email.", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Please enter your email.", Toast.LENGTH_SHORT).show();
 
         }
         else if (TextUtils.isEmpty(password))
         {
-            Toast.makeText(this, "Please enter your password.", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Please enter your password.", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -97,13 +111,13 @@ public class LoginActivity extends AppCompatActivity {
                                 SendUserToMainActivity();
 
 
-                               Toast.makeText(LoginActivity.this, "You are logged In successfully",Toast.LENGTH_SHORT );
+                               Toast.makeText(LoginActivity.this, "You are logged In successfully",Toast.LENGTH_SHORT ).show();
                                loadingBar.dismiss();
                             }
                             else
                             {
                                 String message = task.getException().getMessage();
-                                Toast.makeText(LoginActivity.this, "Error occurred:" + message, Toast.LENGTH_SHORT);
+                                Toast.makeText(LoginActivity.this, "Error occurred:" + message, Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                         }
@@ -111,13 +125,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-        mainIntent.addFlags(mainIntent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(mainIntent);
-        finish();
-    }
-
+        private void SendUserToMainActivity() {
+            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+            mainIntent.addFlags(mainIntent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(mainIntent);
+        }
 
     private void SendUserToRegisterActivity() {
         Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
