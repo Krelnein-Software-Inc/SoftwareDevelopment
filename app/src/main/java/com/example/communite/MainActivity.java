@@ -1,19 +1,17 @@
 package com.example.communite;
 
-import static android.content.ContentValues.TAG;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -86,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     // User data exists, stay in MainActivity
-                    SendUserToMainActivity();
                 } else {
                     // User data does not exist, redirect to SetupActivity
                     SendUserToSetupActivity();
@@ -95,16 +95,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e(TAG, "onCancelled: " + databaseError.getMessage());
+                Toast.makeText(MainActivity.this, "Error occurred: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(MainActivity.this, MainActivity.class);
-        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(mainIntent);
-        finish();
+        // Already in MainActivity, no need to redirect
     }
 
     private void SendUserToSetupActivity() {
@@ -129,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void UserMenuSelector(MenuItem item) {
+    private boolean UserMenuSelector(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.nav_profile) {
             Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
@@ -148,5 +145,6 @@ public class MainActivity extends AppCompatActivity {
             mAuth.signOut();
             SendUserToLoginActivity();
         }
+        return true;
     }
 }

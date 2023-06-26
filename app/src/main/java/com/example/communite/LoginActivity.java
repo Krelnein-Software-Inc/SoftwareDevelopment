@@ -21,103 +21,78 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button LoginButton;
-    private EditText UserEmail, UserPassword;
-    private TextView ForgotPassword;
-    private TextView NeedNewAccountLink;
+    private Button loginButton;
+    private EditText userEmail, userPassword;
+    private TextView forgotPassword;
+    private TextView needNewAccountLink;
     private ProgressDialog loadingBar;
 
     private FirebaseAuth mAuth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         mAuth = FirebaseAuth.getInstance();
 
-        NeedNewAccountLink = (TextView) findViewById(R.id.register_account_link);
-        ForgotPassword = (TextView) findViewById(R.id.forgot_password);
-        UserEmail = (EditText) findViewById(R.id.login_email);
-        UserPassword = (EditText) findViewById(R.id.login_password);
-        LoginButton = (Button) findViewById(R.id.login_button);
+        needNewAccountLink = findViewById(R.id.register_account_link);
+        forgotPassword = findViewById(R.id.forgot_password);
+        userEmail = findViewById(R.id.login_email);
+        userPassword = findViewById(R.id.login_password);
+        loginButton = findViewById(R.id.login_button);
         loadingBar = new ProgressDialog(this);
 
-
-        NeedNewAccountLink.setOnClickListener(new View.OnClickListener() {
+        needNewAccountLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SendUserToRegisterActivity();
             }
         });
 
-        LoginButton.setOnClickListener(new View.OnClickListener() {
-
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 AllowingUserToLogin();
-
-
             }
         });
+    }
 
-    ;}
+
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if (currentUser != null)
-        {
+        if (currentUser != null) {
             SendUserToMainActivity();
         }
     }
 
-
-
     private void AllowingUserToLogin() {
-        String email = UserEmail.getText().toString();
-        String password = UserPassword.getText().toString();
+        String email = userEmail.getText().toString();
+        String password = userPassword.getText().toString();
 
-        if (TextUtils.isEmpty(email))
-        {
+        if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter your email.", Toast.LENGTH_SHORT).show();
-
-        }
-        else if (TextUtils.isEmpty(password))
-        {
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter your password.", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+        } else {
             loadingBar.setTitle("Login");
-            loadingBar.setMessage("Please wait while  we are allowing you to login to your account");
-            loadingBar.show();
+            loadingBar.setMessage("Please wait while we are allowing you to login to your account");
             loadingBar.setCanceledOnTouchOutside(true);
+            loadingBar.show();
 
             mAuth.signInWithEmailAndPassword(email, password)
-
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task)
-                        {
-                            if (task.isSuccessful())
-                            {
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
                                 SendUserToMainActivity();
-
-
-                               Toast.makeText(LoginActivity.this, "You are logged In successfully",Toast.LENGTH_SHORT ).show();
-                               loadingBar.dismiss();
-                            }
-                            else
-                            {
+                                Toast.makeText(LoginActivity.this, "You are logged in successfully", Toast.LENGTH_SHORT).show();
+                                loadingBar.dismiss();
+                            } else {
                                 String message = task.getException().getMessage();
-                                Toast.makeText(LoginActivity.this, "Error occurred:" + message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Error occurred: " + message, Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
                         }
@@ -125,13 +100,15 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-        private void SendUserToMainActivity() {
-            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-            mainIntent.addFlags(mainIntent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(mainIntent);
-        }
+    private void SendUserToMainActivity() {
+        Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
+    }
 
     private void SendUserToRegisterActivity() {
         Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(registerIntent);
-    }}
+    }
+}
