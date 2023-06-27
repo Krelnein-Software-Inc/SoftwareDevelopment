@@ -12,5 +12,16 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven { url 'https://MavenRepo' } // Update with the correct repository URL from your settings.gradle file
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+
+}
 rootProject.name = "CommUnite"
 include ':app'
