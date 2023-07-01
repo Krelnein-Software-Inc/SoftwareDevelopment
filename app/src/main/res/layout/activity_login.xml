@@ -94,12 +94,12 @@
         android:text="or Log In with " />
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/connect_account">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/connect_account">
 
-        </LinearLayout>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/facebook_sigin_button"

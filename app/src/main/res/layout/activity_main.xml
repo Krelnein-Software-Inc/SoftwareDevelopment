@@ -11,10 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/main_page_toolbar"
-            layout="@layout/app_bar_layout">
-        </include>
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
         <FrameLayout
             android:id="@+id/main_container"
@@ -45,6 +48,4 @@
 
     </com.google.android.material.navigation.NavigationView>
 
-
 </androidx.drawerlayout.widget.DrawerLayout>
-

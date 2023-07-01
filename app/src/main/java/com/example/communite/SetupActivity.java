@@ -1,9 +1,5 @@
 package com.example.communite;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -88,7 +89,18 @@ public class SetupActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     if (dataSnapshot.child(currentUserID).hasChild("profileimage")) {
                         String image = dataSnapshot.child(currentUserID).child("profileimage").getValue().toString();
-                        Picasso.with(SetupActivity.this).load(image).placeholder(R.drawable.profile).into(ProfileImage);
+                        Picasso.get().load(image).placeholder(R.drawable.profile).into(ProfileImage, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                // Image loaded successfully
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                // Error loading image
+                                Toast.makeText(SetupActivity.this, "Failed to load profile image.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }
             }
@@ -98,8 +110,6 @@ public class SetupActivity extends AppCompatActivity {
                 // Handle the onCancelled event if needed
             }
         });
-
-
     }
 
     @Override

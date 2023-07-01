@@ -16,18 +16,6 @@
         android:title="Home"
         android:icon="@drawable/home"/>
 
-
-    <item
-        android:id="@+id/nav_friends"
-        android:title="Friends"
-        android:icon="@drawable/friends"/>
-
-
-    <item
-        android:id="@+id/nav_messages"
-        android:title="Messages"
-        android:icon="@drawable/messages"/>
-
     <item
         android:id="@+id/nav_report"
         android:title="Report"

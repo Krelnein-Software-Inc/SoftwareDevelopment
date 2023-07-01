@@ -10,8 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,8 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Objects;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,9 +32,13 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     private Toolbar mToolbar;
+    private CircleImageView navProfileImage;
+    private TextView navProfileUsername;
 
     private FirebaseAuth mAuth;
     private DatabaseReference UsersRef;
+
+    private String currentUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Home");
+        getSupportActionBar().setTitle("Home");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = findViewById(R.id.drawable_layout);
@@ -56,14 +59,17 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
         navigationView = findViewById(R.id.navigation_view);
-        View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
+        View navHeaderView = navigationView.inflateHeaderView(R.layout.navigation_header);
+        navProfileImage = navHeaderView.findViewById(R.id.nav_profile_image);
+        navProfileUsername = navHeaderView.findViewById(R.id.nav_user_full_name);
 
-        navigationView.setNavigationItemSelectedListener(item -> {
-            UserMenuSelector(item);
-            return false;
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                return UserMenuSelector(item);
+            }
         });
     }
-
 
     @Override
     protected void onStart() {
@@ -74,30 +80,31 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser == null) {
             SendUserToLoginActivity();
         } else {
-            CheckUserExistence(currentUser.getUid());
-        }
-    }
-
-    private void CheckUserExistence(String uid) {
-        final String currentUserId = mAuth.getCurrentUser().getUid();
-        DatabaseReference currentUserRef = UsersRef.child(currentUserId);
-
-        currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // User data exists, stay in MainActivity
-                } else {
-                    // User data does not exist, redirect to SetupActivity
-                    SendUserToSetupActivity();
+            currentUserID = currentUser.getUid();
+            UsersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        if (dataSnapshot.hasChild("fullname")) {
+                            String fullname = dataSnapshot.child("fullname").getValue().toString();
+                            navProfileUsername.setText(fullname);
+                        }
+                        if (dataSnapshot.hasChild("profileimage")) {
+                            String image = dataSnapshot.child("profileimage").getValue().toString();
+                            Picasso.get().load(image).placeholder(R.drawable.profile_icon).into(navProfileImage);
+                        } else {
+                            // User data does not exist, redirect to SetupActivity
+                            SendUserToSetupActivity();
+                        }
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this, "Error occurred: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(MainActivity.this, "Error occurred: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void SendUserToMainActivity() {
@@ -131,11 +138,7 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.nav_profile) {
             Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
         } else if (itemId == R.id.nav_home) {
-            Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
-        } else if (itemId == R.id.nav_friends) {
-            Toast.makeText(this, "Friend List", Toast.LENGTH_SHORT).show();
-        } else if (itemId == R.id.nav_messages) {
-            Toast.makeText(this, "Messages", Toast.LENGTH_SHORT).show();
+
         } else if (itemId == R.id.nav_report) {
             Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show();
         } else if (itemId == R.id.nav_settings) {
