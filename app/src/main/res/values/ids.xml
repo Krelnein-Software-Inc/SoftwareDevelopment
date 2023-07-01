@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="add_new_post_button" type="id" />
+    <item name="update_post_page_toolbr" type="id" />
+    <item name="update_post_page_toolbar" type="id" />
 </resources>
