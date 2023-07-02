@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbg"
+    tools:context="com.example.communite.ForgotPasswordActivity">
+
+    <Button
+        android:id="@+id/Back_button"
+        android:layout_width="183dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="200dp"
+        android:text="Back"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/Change_PasswordWrite"
+        android:layout_width="253dp"
+        android:layout_height="52dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="457dp"
+        android:backgroundTint="#002AA6"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Change Password"
+        android:textColorHint="#001CA8"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/Change_button1"
+        android:layout_width="292dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="265dp"
+        android:text="Change"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <ProgressBar
+        android:id="@+id/forgetPasswordProgressbar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="245dp"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/login_email"
+        android:layout_width="370dp"
+        android:layout_height="64dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="393dp"
+        android:layout_marginEnd="19dp"
+        android:background="@drawable/inputs"
+        android:drawableLeft="@drawable/email"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textAlignment="viewStart"
+        android:textColorHint="#000000" />
+</RelativeLayout>
+
