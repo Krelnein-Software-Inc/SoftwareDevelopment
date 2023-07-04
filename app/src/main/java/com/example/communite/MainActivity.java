@@ -229,6 +229,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(loginIntent);
         finish();
     }
+    private void SendUserToSettingsActivity() {
+        Intent SettingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(SettingsIntent);
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -251,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show();
         } else if (itemId == R.id.nav_settings) {
             Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+            SendUserToSettingsActivity();
         } else if (itemId == R.id.nav_Logout) {
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
             mAuth.signOut();

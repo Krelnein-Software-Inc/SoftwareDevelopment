@@ -17,10 +17,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPasswordActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     //Declaration
-    Button btnReset, btnBack;
+    TextView btnReset, btnBack;
     EditText edtEmail;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
@@ -31,12 +31,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot);
+        setContentView(R.layout.activity_setting);
 
         //Initializaton
-        Change = findViewById(R.id.Change_PasswordWrite);
+        Change = findViewById(R.id.Settings_text);
         btnBack = findViewById(R.id.Back_button);
-        btnReset = findViewById(R.id.Change_button1);
+        btnReset = findViewById(R.id.Reset_button);
         edtEmail = findViewById(R.id.login_email);
         progressBar = findViewById(R.id.forgetPasswordProgressbar);
 
@@ -74,8 +74,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(ForgotPasswordActivity.this, "Reset Password link has been sent to your registered Email", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+                        Toast.makeText(SettingsActivity.this, "Reset Password link has been sent to your registered Email", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -83,7 +83,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ForgotPasswordActivity.this, "Error :- " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingsActivity.this, "Error :- " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.INVISIBLE);
                         btnReset.setVisibility(View.VISIBLE);
                     }
