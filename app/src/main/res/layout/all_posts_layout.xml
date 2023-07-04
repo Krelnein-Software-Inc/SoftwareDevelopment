@@ -10,6 +10,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="4dp"
+        android:background="@drawable/post_border"
         android:orientation="vertical">
 
         <LinearLayout
@@ -106,7 +107,7 @@
 
         <ImageView
             android:id="@+id/post_image"
-            android:layout_width="390dp"
+            android:layout_width="385dp"
             android:layout_height="190dp"
             android:layout_margin="3dp"
             android:adjustViewBounds="true"
