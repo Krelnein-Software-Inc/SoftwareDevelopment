@@ -181,6 +181,16 @@
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
+            <ProgressBar
+                android:id="@+id/Progressbar2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="245dp"
+                android:visibility="invisible" />
+
             <EditText
                 android:id="@+id/login_email"
                 android:layout_width="370dp"

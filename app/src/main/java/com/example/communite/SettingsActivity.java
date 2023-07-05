@@ -38,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.Back_button);
         btnReset = findViewById(R.id.Reset_button);
         edtEmail = findViewById(R.id.login_email);
-        progressBar = findViewById(R.id.forgetPasswordProgressbar);
+        progressBar = findViewById(R.id.Progressbar2);
 
         mAuth = FirebaseAuth.getInstance();
 
