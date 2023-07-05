@@ -1,10 +1,12 @@
 package com.example.communite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -81,5 +83,25 @@ public class ClickPostActivity extends AppCompatActivity {
                 // Handle the error
             }
         });
+
+        DeletePostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DeleteCurrentPost ();
+            }
+        });
+
+    }
+
+    private void DeleteCurrentPost() {
+        ClickPostRef.removeValue();
+        SendUserToMainActivity();
+        Toast.makeText(this, "Post has been deleted.", Toast.LENGTH_SHORT).show();
+    }
+    private void SendUserToMainActivity() {
+        Intent mainIntent = new Intent(ClickPostActivity.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 }
