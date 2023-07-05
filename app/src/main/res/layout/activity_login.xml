@@ -82,54 +82,11 @@
         android:layout_marginBottom="191dp"
         android:text="Don't have an Account? Create an Account " />
 
-    <TextView
-        android:id="@+id/connect_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="161dp"
-        android:layout_marginBottom="160dp"
-        android:text="or Log In with " />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/connect_account">
+        android:orientation="horizontal">
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/facebook_sigin_button"
-        android:layout_width="80dp"
-        android:layout_height="45dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="90dp"
-        android:layout_marginBottom="95dp"
-        android:src="@drawable/facebook" />
-
-    <ImageView
-        android:id="@+id/twitter_signin_button"
-        android:layout_width="72dp"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="257dp"
-        android:layout_marginBottom="97dp"
-        android:src="@drawable/google" />
-
-    <ImageView
-        android:id="@+id/google_signin_button"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="173dp"
-        android:layout_marginBottom="88dp"
-        android:src="@drawable/twitter" />
 
 </RelativeLayout>
