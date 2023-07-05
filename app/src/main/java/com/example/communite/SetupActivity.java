@@ -197,7 +197,7 @@ public class SetupActivity extends AppCompatActivity {
             userMap.put("username", username);
             userMap.put("fullname", fullname);
             userMap.put("address", address);
-            userMap.put("status", "Student Developer");
+            userMap.put("status", "none");
             userMap.put("gender", "none");
             userMap.put("organization", "none");
 

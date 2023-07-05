@@ -8,40 +8,14 @@
     tools:context="com.example.communite.ForgotPasswordActivity">
 
     <TextView
-        android:id="@+id/text_email"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="183dp"
-        android:layout_marginEnd="31dp"
-        android:text="We just need your registered Email id to sent the Reset Password link to your Email "
-        android:textAlignment="center" />
-
-    <TextView
-        android:id="@+id/Back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="59dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="340dp"
-        android:background="@drawable/arrow_back"
-        android:backgroundTint="#000000"
-        android:ems="10"
-        android:gravity="start|top"
-        android:textColorHint="#000000"
-        android:textSize="30sp" />
-
-    <TextView
         android:id="@+id/Settings_text"
         android:layout_width="279dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="105dp"
-        android:layout_marginEnd="67dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="66dp"
         android:backgroundTint="#002AA6"
         android:drawableLeft="@drawable/lock_reset_2"
         android:ems="10"
@@ -50,42 +24,193 @@
         android:textColorHint="#001CA8"
         android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/Reset_button"
-        android:layout_width="292dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="309dp"
-        android:text="RESET"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="647dp"
+        android:layout_below="@id/Settings_text"
+        android:layout_marginTop="20dp">
 
-    <ProgressBar
-        android:id="@+id/forgetPasswordProgressbar"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/settings_profile_image"
+                android:layout_width="201dp"
+                android:layout_height="160dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="107dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/profile" />
+
+            <EditText
+                android:id="@+id/settings_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/settings_profile_image"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/inputs"
+                android:hint="Profile Status"
+                android:padding="30dp"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/settings_username"
+                android:layout_width="386dp"
+                android:layout_height="57dp"
+                android:layout_below="@id/settings_status"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/inputs"
+                android:hint="Username"
+                android:padding="12dp"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/settings_profile_full_name"
+                android:layout_width="386dp"
+                android:layout_height="57dp"
+                android:layout_below="@id/settings_username"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/inputs"
+                android:hint="Profile Name"
+                android:padding="12dp"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/settings_user_address"
+                android:layout_width="386dp"
+                android:layout_height="57dp"
+                android:layout_below="@id/settings_profile_full_name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/inputs"
+                android:hint="Address"
+                android:padding="12dp"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/settings_user_status"
+                android:layout_width="386dp"
+                android:layout_height="57dp"
+                android:layout_below="@id/settings_user_address"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/inputs"
+                android:hint="Status"
+                android:padding="12dp"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/settings_user_gender"
+                android:layout_width="386dp"
+                android:layout_height="57dp"
+                android:layout_below="@id/settings_user_status"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/inputs"
+                android:hint="Gender"
+                android:padding="12dp"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/settings_user_organization"
+                android:layout_width="386dp"
+                android:layout_height="57dp"
+                android:layout_below="@id/settings_user_gender"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/inputs"
+                android:hint="Organization"
+                android:padding="12dp"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/update_account_button"
+                android:layout_width="292dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="19dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/settings_user_organization"
+                android:text="SAVE CHANGES"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_email"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/update_account_button"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:text="We just need your registered email ID to send the reset password link to your email"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/Reset_button"
+                android:layout_width="292dp"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:layout_below="@id/login_email"
+                android:text="RESET"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/login_email"
+                android:layout_width="370dp"
+                android:layout_height="64dp"
+                android:layout_below="@id/text_email"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/inputs"
+                android:drawableLeft="@drawable/email"
+                android:ems="10"
+                android:hint="Enter your email"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:textAlignment="viewStart"
+                android:textColorHint="#000000" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/Back_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="309dp"
-        android:visibility="invisible" />
-
-    <EditText
-        android:id="@+id/login_email"
-        android:layout_width="370dp"
-        android:layout_height="64dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="314dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/email"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/arrow_back"
+        android:backgroundTint="#000000"
         android:ems="10"
-        android:hint="Enter your Email"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textAlignment="viewStart"
-        android:textColorHint="#000000" />
+        android:gravity="start|top"
+        android:textColorHint="#000000"
+        android:textSize="30sp" />
 </RelativeLayout>
