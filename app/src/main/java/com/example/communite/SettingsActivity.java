@@ -1,6 +1,8 @@
 package com.example.communite;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,7 +27,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
@@ -40,9 +48,15 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView btnReset, btnBack;
     private EditText edtEmail;
     private ProgressBar progressBar;
+    private ProgressDialog loadingBar;
+
     private FirebaseAuth mAuth;
     private String strEmail;
     private TextView Change;
+    private StorageReference UserProfileImageRef;
+
+    final static int Gallery_Pick = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +69,8 @@ public class SettingsActivity extends AppCompatActivity {
                 .getReference()
                 .child("Users")
                 .child(currentUserId);
+        UserProfileImageRef = FirebaseStorage.getInstance("gs://communite-f7efa.appspot.com").getReference().child("Profile Images");
+
 
         userName = findViewById(R.id.settings_profile_username);
         userProfName = findViewById(R.id.settings_profile_full_name);
@@ -64,6 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
         userOrganization = findViewById(R.id.settings_user_organization);
         userProfImage = findViewById(R.id.settings_profile);
         updateAccountSettingsButton = findViewById(R.id.update_account_button);
+        loadingBar = new ProgressDialog(this);
         Change = findViewById(R.id.Settings_text);
         btnBack = findViewById(R.id.Back_button);
         btnReset = findViewById(R.id.Reset_button);
@@ -153,7 +170,15 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-
+        userProfImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, Gallery_Pick);
+            }
+        });
     }
 
     private void ResetPassword() {
@@ -180,6 +205,73 @@ public class SettingsActivity extends AppCompatActivity {
                 });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Gallery_Pick && resultCode == RESULT_OK && data != null) {
+            Uri ImageUri = data.getData();
+
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1, 1)
+                    .start(this);
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            if (resultCode == RESULT_OK) {
+                loadingBar.setTitle("Profile Image");
+                loadingBar.setMessage("Please wait while we are updating your profile image");
+                loadingBar.setCanceledOnTouchOutside(true);
+                loadingBar.show();
+
+                Uri resultUri = result.getUri();
+
+                final StorageReference filePath = UserProfileImageRef.child(currentUserId + ".jpg");
+
+                UploadTask uploadTask = filePath.putFile(resultUri);
+                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri downloadUri) {
+                                    String downloadUrl = downloadUri.toString();
+
+                                    settingsUserRef.child("profileimage").setValue(downloadUrl)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Intent selfIntent = new Intent( SettingsActivity.this, SettingsActivity.class);
+                                                        Toast.makeText(SettingsActivity.this, "Profile Image stored successfully", Toast.LENGTH_SHORT).show();
+                                                        loadingBar.dismiss();
+                                                    } else {
+                                                        String message = task.getException().getMessage();
+                                                        Toast.makeText(SettingsActivity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
+                                                        loadingBar.dismiss();
+                                                    }
+                                                }
+                                            });
+                                }
+                            });
+                        } else {
+                            String message = task.getException().getMessage();
+                            Toast.makeText(SettingsActivity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
+                            loadingBar.dismiss();
+                        }
+                    }
+                });
+            } else {
+                Toast.makeText(this, "Error Occurred: Image can't be cropped. Please try again.", Toast.LENGTH_SHORT).show();
+                loadingBar.dismiss();
+            }
+        }
+    }
+
+
 
     private void ValidateAccountInfo() {
         String username = userName.getText().toString();
@@ -208,6 +300,12 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(this, "Please write your Organization", Toast.LENGTH_SHORT).show();
         }
         else{
+
+            loadingBar.setTitle("Profile Image");
+            loadingBar.setMessage("Please wait while we are updating your profile image");
+            loadingBar.setCanceledOnTouchOutside(true);
+            loadingBar.show();
+
             UpdateAccountInfo(username, profilename, status, address, gender, organization);
         }
     }
@@ -228,10 +326,11 @@ public class SettingsActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     SendUserToMainActivity();
                     Toast.makeText(SettingsActivity.this, "Account Settings updated successfully", Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
                 }
                 else{
                     Toast.makeText(SettingsActivity.this, "Error Occurred while updating account information", Toast.LENGTH_SHORT).show();
-
+                    loadingBar.dismiss();
                 }
             }
         });
