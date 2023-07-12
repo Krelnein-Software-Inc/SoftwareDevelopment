@@ -14,8 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,13 +37,12 @@ public class SettingsActivity extends AppCompatActivity {
     private CircleImageView userProfImage;
     private DatabaseReference settingsUserRef;
     private String currentUserId;
-
-    TextView btnReset, btnBack;
-    EditText edtEmail;
-    ProgressBar progressBar;
-    FirebaseAuth mAuth;
-    String strEmail;
-    TextView Change;
+    private TextView btnReset, btnBack;
+    private EditText edtEmail;
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
+    private String strEmail;
+    private TextView Change;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,32 +146,14 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                strEmail = edtEmail.getText().toString().trim();
-                if (!TextUtils.isEmpty(strEmail)) {
-                    ResetPassword();
-                } else {
-                    edtEmail.setError("Email field can't be empty");
-                }
-            }
-        });
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
         updateAccountSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle update account settings button click
-                // ...
+                ValidateAccountInfo();
             }
         });
+
+
     }
 
     private void ResetPassword() {
@@ -193,5 +178,68 @@ public class SettingsActivity extends AppCompatActivity {
                         btnReset.setVisibility(View.VISIBLE);
                     }
                 });
+
+    }
+
+    private void ValidateAccountInfo() {
+        String username = userName.getText().toString();
+        String profilename = userProfName.getText().toString();
+        String status = userStatus.getText().toString();
+        String address = userAddress.getText().toString();
+        String gender = userGender.getText().toString();
+        String organization = userOrganization.getText().toString();
+
+        if (TextUtils.isEmpty(username)){
+            Toast.makeText(this, "Please write your username", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(profilename)){
+            Toast.makeText(this, "Please write your Full Name", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(status)){
+            Toast.makeText(this, "Please write your Bio", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(address)){
+            Toast.makeText(this, "Please write your Address", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(gender)){
+            Toast.makeText(this, "Please write your Gender", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(organization)){
+            Toast.makeText(this, "Please write your Organization", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            UpdateAccountInfo(username, profilename, status, address, gender, organization);
+        }
+    }
+
+
+    private void UpdateAccountInfo(String username, String profilename, String status, String address, String gender, String organization) {
+        HashMap userMap = new HashMap();
+            userMap.put("username", username);
+            userMap.put("fullname", profilename);
+            userMap.put("status", status);
+            userMap.put("address", address);
+            userMap.put("gender", gender);
+            userMap.put("organization", organization);
+
+        settingsUserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if (task.isSuccessful()) {
+                    SendUserToMainActivity();
+                    Toast.makeText(SettingsActivity.this, "Account Settings updated successfully", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(SettingsActivity.this, "Error Occurred while updating account information", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+    }
+    private void SendUserToMainActivity() {
+        Intent mainIntent = new Intent(SettingsActivity.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 }
