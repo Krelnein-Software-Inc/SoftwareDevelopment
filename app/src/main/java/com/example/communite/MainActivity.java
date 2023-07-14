@@ -224,8 +224,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(addNewPostIntent);
     }
 
-    private void SendUserToMainActivity() {
-        // Already in MainActivity, no need to redirect
+    private void SendUserToProfileActivity() {
+        Intent loginIntent = new Intent(MainActivity.this, ProfileActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        finish();
     }
 
     private void SendUserToSetupActivity() {
@@ -246,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(SettingsIntent);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
@@ -260,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.nav_post) {
             SendUserToPostActivity();
         } else if (itemId == R.id.nav_profile) {
+            SendUserToProfileActivity();
             Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
         } else if (itemId == R.id.nav_home) {
 
@@ -276,3 +281,5 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 }
+
+
