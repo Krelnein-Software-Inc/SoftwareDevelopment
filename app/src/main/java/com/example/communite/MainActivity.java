@@ -249,6 +249,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(SettingsIntent);
     }
 
+    private void SendUserToReportActivity() {
+        Intent SettingsIntent = new Intent(MainActivity.this, Report_PageActivity.class);
+        startActivity(SettingsIntent);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -270,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (itemId == R.id.nav_report) {
             Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show();
+            SendUserToReportActivity();
         } else if (itemId == R.id.nav_settings) {
             Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
             SendUserToSettingsActivity();
