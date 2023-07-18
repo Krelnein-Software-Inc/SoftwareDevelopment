@@ -11,4 +11,10 @@ public class DoneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_done);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // Add any additional functionality if needed
+    }
 }

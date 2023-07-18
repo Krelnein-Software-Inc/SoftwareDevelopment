@@ -1,0 +1,14 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- App style attributes -->
+    </style>
+
+    <style name="BottomNavigationViewStyle" parent="Widget.Design.BottomNavigationView">
+        <item name="android:background">@drawable/bottom_nav_background</item>
+        <item name="android:theme">@style/BottomNavThemeOverlay</item>
+    </style>
+
+    <style name="BottomNavThemeOverlay">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+    </style>
+</resources>

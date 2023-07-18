@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent clickPostIntent = new Intent (MainActivity.this, ClickPostActivity.class);
+                        Intent clickPostIntent = new Intent(MainActivity.this, ClickPostActivity.class);
                         clickPostIntent.putExtra("PostKey", PostKey);
                         startActivity(clickPostIntent);
                     }
@@ -183,9 +183,15 @@ public class MainActivity extends AppCompatActivity {
     public static class PostViewHolder extends RecyclerView.ViewHolder {
         View mView;
 
+        ImageButton LikePostButton, CommentPostButton;
+        TextView DisplayNoOfLikes;
+
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
+            LikePostButton=(ImageButton)  mView.findViewById(R.id.like_button);
+            CommentPostButton=(ImageButton)  mView.findViewById(R.id.comment_button);
+            DisplayNoOfLikes = (TextView)  mView.findViewById(R.id.display_no_of_likes);
         }
 
         public void setFullname(String fullname) {
@@ -219,6 +225,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    private void SendUserToReportPageActivity() {
+        Intent SettingsIntent = new Intent(MainActivity.this, ReportPageActivity.class);
+        startActivity(SettingsIntent);
+    }
+
     private void SendUserToPostActivity() {
         Intent addNewPostIntent = new Intent(MainActivity.this, PostActivity.class);
         startActivity(addNewPostIntent);
@@ -244,13 +256,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(loginIntent);
         finish();
     }
+
     private void SendUserToSettingsActivity() {
         Intent SettingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-        startActivity(SettingsIntent);
-    }
-
-    private void SendUserToReportActivity() {
-        Intent SettingsIntent = new Intent(MainActivity.this, Report_PageActivity.class);
         startActivity(SettingsIntent);
     }
 
@@ -275,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (itemId == R.id.nav_report) {
             Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show();
-            SendUserToReportActivity();
+            SendUserToReportPageActivity();
         } else if (itemId == R.id.nav_settings) {
             Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
             SendUserToSettingsActivity();
@@ -286,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }
 
 

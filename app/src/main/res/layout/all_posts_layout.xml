@@ -4,13 +4,14 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="402dp"
-        android:layout_height="289dp"
+        android:layout_width="389dp"
+        android:layout_height="340dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/post_border"
+        android:backgroundTint="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
@@ -64,8 +65,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="has been updated a post"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="13sp"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
                         android:textStyle="bold"></TextView>
 
                     <TextView
@@ -96,8 +98,8 @@
             android:id="@+id/post_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:padding="3dp"
             android:text="Post Description"
             android:textColor="@color/black"
@@ -107,13 +109,59 @@
 
         <ImageView
             android:id="@+id/post_image"
-            android:layout_width="385dp"
+            android:layout_width="346dp"
             android:layout_height="190dp"
-            android:layout_margin="3dp"
+            android:layout_marginLeft="20dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop">
 
         </ImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <ImageButton
+                android:id="@+id/like_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/dislike"
+                android:contentDescription="Like Button"
+                android:padding="8dp">
+
+            </ImageButton>
+
+            <TextView
+                android:id="@+id/display_no_of_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="0 likes"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"></TextView>
+
+            <ImageButton
+                android:id="@+id/comment_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="150dp"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/comment"
+                android:contentDescription="Comment Button"
+                android:padding="8dp">
+
+            </ImageButton>
+
+
+
+        </LinearLayout>
+
 
 
     </LinearLayout>
