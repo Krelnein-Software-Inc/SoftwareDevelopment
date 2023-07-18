@@ -148,7 +148,7 @@
                 android:id="@+id/user_comment_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="150dp"
+                android:layout_marginLeft="170dp"
                 android:backgroundTint="@color/white"
                 android:src="@drawable/comment"
                 android:contentDescription="Comment Button"
