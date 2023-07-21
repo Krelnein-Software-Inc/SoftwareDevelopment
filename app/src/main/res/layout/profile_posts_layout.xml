@@ -4,19 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
-    <!-- Existing LinearLayout with CircleImageView -->
     <LinearLayout
-        android:layout_width="389dp"
+        android:layout_width="380dp"
         android:layout_height="340dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="4dp"
         android:background="@color/white"
         android:orientation="vertical">
 
-        <!-- Contents inside the existing LinearLayout -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,9 +62,9 @@
                         android:id="@+id/user_profile_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="has been updated a post"
                         android:textColor="@android:color/darker_gray"
-                        android:layout_marginLeft="5dp"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -116,9 +114,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/user_like_button"
@@ -126,9 +124,9 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/dislike"
                 android:contentDescription="Like Button"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:src="@drawable/dislike" />
 
             <TextView
                 android:id="@+id/user_display_no_of_likes"
@@ -146,9 +144,9 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="170dp"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/comment"
                 android:contentDescription="Comment Button"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:src="@drawable/comment" />
         </LinearLayout>
 
     </LinearLayout>
