@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/register"
-    tools:context=".ProfileActivity">
+    android:background="@drawable/register">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -23,76 +25,84 @@
                 android:id="@+id/my_profile_pic"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="31dp"
                 android:layout_marginTop="50dp"
-                android:src="@drawable/profile" />
+                android:src="@drawable/profile"
+                app:layout_constraintBottom_toTopOf="@id/my_status"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.061"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/my_status"
-                android:layout_width="397dp"
+                android:layout_width="380dp"
                 android:layout_height="61dp"
-                android:layout_below="@id/my_profile_pic"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginRight="10dp"
                 android:background="@drawable/inputs1"
                 android:padding="18dp"
                 android:text="Status"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="19sp" />
+                android:textSize="19sp"
+                app:layout_constraintBottom_toTopOf="@id/profile_posts_recycler_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/my_profile_pic" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/profile_posts_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="550dp"
-                android:layout_below="@id/my_status"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="0dp" />
+                android:layout_width="415dp"
+                android:layout_height="523dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/my_status" />
 
             <TextView
                 android:id="@+id/my_profile_full_name"
-                android:layout_width="174dp"
+                android:layout_width="168dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="100dp"
-                android:layout_marginEnd="28dp"
+                android:layout_marginTop="44dp"
                 android:text="Profile Name"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.387"
+                app:layout_constraintStart_toEndOf="@id/my_profile_pic"
+                app:layout_constraintTop_toTopOf="@id/my_profile_pic" />
 
             <TextView
                 android:id="@+id/my_organization"
-                android:layout_width="169dp"
-                android:layout_height="20dp"
-                android:layout_below="@id/my_profile_full_name"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="28dp"
+                android:layout_width="168dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="Organization"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.389"
+                app:layout_constraintStart_toEndOf="@+id/my_profile_pic"
+                app:layout_constraintTop_toBottomOf="@id/my_profile_full_name" />
 
             <ImageView
                 android:id="@+id/back_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="350dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="368dp"
                 android:layout_marginTop="16dp"
                 android:contentDescription="Arrow Back"
-                android:padding="8dp"
-                android:src="@drawable/arrow_back" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,16 +1,14 @@
 package com.example.communite;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,36 +38,26 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SettingsActivity extends AppCompatActivity {
 
     private EditText userName, userProfName, userStatus, userAddress, userGender, userOrganization;
-    private Button updateAccountSettingsButton;
     private CircleImageView userProfImage;
     private DatabaseReference settingsUserRef;
     private String currentUserId;
-    private TextView btnReset, btnBack;
-    private EditText edtEmail;
-    private ProgressBar progressBar;
-    private ProgressDialog loadingBar;
-
-    private FirebaseAuth mAuth;
-    private String strEmail;
-    private TextView Change;
     private StorageReference UserProfileImageRef;
 
     final static int Gallery_Pick = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
+        ImageView backButton = findViewById(R.id.settings_back_button);
+
+        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         settingsUserRef = FirebaseDatabase.getInstance("https://communite-f7efa-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference()
                 .child("Users")
                 .child(currentUserId);
         UserProfileImageRef = FirebaseStorage.getInstance("gs://communite-f7efa.appspot.com").getReference().child("Profile Images");
-
 
         userName = findViewById(R.id.settings_profile_username);
         userProfName = findViewById(R.id.settings_profile_full_name);
@@ -79,81 +66,28 @@ public class SettingsActivity extends AppCompatActivity {
         userGender = findViewById(R.id.settings_user_gender);
         userOrganization = findViewById(R.id.settings_user_organization);
         userProfImage = findViewById(R.id.settings_profile);
-        updateAccountSettingsButton = findViewById(R.id.update_account_button);
-        loadingBar = new ProgressDialog(this);
-        Change = findViewById(R.id.Settings_text);
-        btnBack = findViewById(R.id.Back_button);
-        btnReset = findViewById(R.id.Reset_button);
-        edtEmail = findViewById(R.id.login_email);
-        progressBar = findViewById(R.id.Progressbar2);
 
         settingsUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("SettingsActivity", "onDataChange triggered");
                 if (dataSnapshot.exists()) {
-                    if (dataSnapshot.hasChild("profileimage")) {
-                        String myProfileImage = dataSnapshot.child("profileimage").getValue(String.class);
-                        if (TextUtils.isEmpty(myProfileImage)) {
-                            Log.d("SettingsActivity", "Profile image is empty or null");
-                        } else {
-                            Picasso.get().load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
-                        }
-                    }
+                    String myProfileImage = dataSnapshot.child("profileimage").getValue(String.class);
+                    String myUserName = dataSnapshot.child("username").getValue(String.class);
+                    String myProfileName = dataSnapshot.child("fullname").getValue(String.class);
+                    String myProfileStatus = dataSnapshot.child("status").getValue(String.class);
+                    String myAddress = dataSnapshot.child("address").getValue(String.class);
+                    String myGender = dataSnapshot.child("gender").getValue(String.class);
+                    String myOrganization = dataSnapshot.child("organization").getValue(String.class);
 
-                    if (dataSnapshot.hasChild("username")) {
-                        String myUserName = dataSnapshot.child("username").getValue(String.class);
-                        if (TextUtils.isEmpty(myUserName)) {
-                            Log.d("SettingsActivity", "Username is empty or null");
-                        } else {
-                            userName.setText(myUserName);
-                        }
+                    if (!TextUtils.isEmpty(myProfileImage)) {
+                        Picasso.get().load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
                     }
-
-                    if (dataSnapshot.hasChild("fullname")) {
-                        String myProfileName = dataSnapshot.child("fullname").getValue(String.class);
-                        if (TextUtils.isEmpty(myProfileName)) {
-                            Log.d("SettingsActivity", "Profile name is empty or null");
-                        } else {
-                            userProfName.setText(myProfileName);
-                        }
-                    }
-
-                    if (dataSnapshot.hasChild("status")) {
-                        String myProfileStatus = dataSnapshot.child("status").getValue(String.class);
-                        if (TextUtils.isEmpty(myProfileStatus)) {
-                            Log.d("SettingsActivity", "Profile status is empty or null");
-                        } else {
-                            userStatus.setText(myProfileStatus);
-                        }
-                    }
-
-                    if (dataSnapshot.hasChild("address")) {
-                        String myAddress = dataSnapshot.child("address").getValue(String.class);
-                        if (TextUtils.isEmpty(myAddress)) {
-                            Log.d("SettingsActivity", "Address is empty or null");
-                        } else {
-                            userAddress.setText(myAddress);
-                        }
-                    }
-
-                    if (dataSnapshot.hasChild("gender")) {
-                        String myGender = dataSnapshot.child("gender").getValue(String.class);
-                        if (TextUtils.isEmpty(myGender)) {
-                            Log.d("SettingsActivity", "Gender is empty or null");
-                        } else {
-                            userGender.setText(myGender);
-                        }
-                    }
-
-                    if (dataSnapshot.hasChild("organization")) {
-                        String myOrganization = dataSnapshot.child("organization").getValue(String.class);
-                        if (TextUtils.isEmpty(myOrganization)) {
-                            Log.d("SettingsActivity", "Organization is empty or null");
-                        } else {
-                            userOrganization.setText(myOrganization);
-                        }
-                    }
+                    userName.setText(myUserName);
+                    userProfName.setText(myProfileName);
+                    userStatus.setText(myProfileStatus);
+                    userAddress.setText(myAddress);
+                    userGender.setText(myGender);
+                    userOrganization.setText(myOrganization);
                 }
             }
 
@@ -163,10 +97,18 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        Button updateAccountSettingsButton = findViewById(R.id.update_account_button);
         updateAccountSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ValidateAccountInfo();
+                validateAccountInfo();
             }
         });
 
@@ -179,46 +121,15 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivityForResult(galleryIntent, Gallery_Pick);
             }
         });
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-    }
-
-    private void ResetPassword() {
-        progressBar.setVisibility(View.VISIBLE);
-        btnReset.setVisibility(View.INVISIBLE);
-
-        mAuth.sendPasswordResetEmail(strEmail)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(SettingsActivity.this, "Reset Password link has been sent to your registered Email", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SettingsActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.INVISIBLE);
-                        btnReset.setVisibility(View.VISIBLE);
-                    }
-                });
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Gallery_Pick && resultCode == RESULT_OK && data != null) {
-            Uri ImageUri = data.getData();
+            Uri imageUri = data.getData();
 
-            CropImage.activity()
+            CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setAspectRatio(1, 1)
                     .start(this);
@@ -227,11 +138,6 @@ public class SettingsActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if (resultCode == RESULT_OK) {
-                loadingBar.setTitle("Profile Image");
-                loadingBar.setMessage("Please wait while we are updating your profile image");
-                loadingBar.setCanceledOnTouchOutside(true);
-                loadingBar.show();
-
                 Uri resultUri = result.getUri();
 
                 final StorageReference filePath = UserProfileImageRef.child(currentUserId + ".jpg");
@@ -251,13 +157,10 @@ public class SettingsActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        Intent selfIntent = new Intent( SettingsActivity.this, SettingsActivity.class);
-                                                        Toast.makeText(SettingsActivity.this, "Profile Image stored successfully", Toast.LENGTH_SHORT).show();
-                                                        loadingBar.dismiss();
+                                                        Toast.makeText(SettingsActivity.this, "Profile image updated successfully", Toast.LENGTH_SHORT).show();
                                                     } else {
                                                         String message = task.getException().getMessage();
                                                         Toast.makeText(SettingsActivity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
-                                                        loadingBar.dismiss();
                                                     }
                                                 }
                                             });
@@ -266,85 +169,73 @@ public class SettingsActivity extends AppCompatActivity {
                         } else {
                             String message = task.getException().getMessage();
                             Toast.makeText(SettingsActivity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
-                            loadingBar.dismiss();
                         }
                     }
                 });
             } else {
                 Toast.makeText(this, "Error Occurred: Image can't be cropped. Please try again.", Toast.LENGTH_SHORT).show();
-                loadingBar.dismiss();
             }
         }
     }
 
+    private void validateAccountInfo() {
+        String username = userName.getText().toString().trim();
+        String profilename = userProfName.getText().toString().trim();
+        String status = userStatus.getText().toString().trim();
+        String address = userAddress.getText().toString().trim();
+        String gender = userGender.getText().toString().trim();
+        String organization = userOrganization.getText().toString().trim();
 
-
-    private void ValidateAccountInfo() {
-        String username = userName.getText().toString();
-        String profilename = userProfName.getText().toString();
-        String status = userStatus.getText().toString();
-        String address = userAddress.getText().toString();
-        String gender = userGender.getText().toString();
-        String organization = userOrganization.getText().toString();
-
-        if (TextUtils.isEmpty(username)){
+        if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Please write your username", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(profilename)){
+        } else if (TextUtils.isEmpty(profilename)) {
             Toast.makeText(this, "Please write your Full Name", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(status)){
+        } else if (TextUtils.isEmpty(status)) {
             Toast.makeText(this, "Please write your Bio", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(address)){
+        } else if (TextUtils.isEmpty(address)) {
             Toast.makeText(this, "Please write your Address", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(gender)){
+        } else if (TextUtils.isEmpty(gender)) {
             Toast.makeText(this, "Please write your Gender", Toast.LENGTH_SHORT).show();
-        }
-        else if (TextUtils.isEmpty(organization)){
+        } else if (TextUtils.isEmpty(organization)) {
             Toast.makeText(this, "Please write your Organization", Toast.LENGTH_SHORT).show();
-        }
-        else{
-
-            loadingBar.setTitle("Profile Image");
-            loadingBar.setMessage("Please wait while we are updating your profile image");
-            loadingBar.setCanceledOnTouchOutside(true);
-            loadingBar.show();
-
-            UpdateAccountInfo(username, profilename, status, address, gender, organization);
+        } else {
+            updateAccountInfo(username, profilename, status, address, gender, organization);
         }
     }
 
+    private void updateAccountInfo(String username, String profilename, String status, String address, String gender, String organization) {
+        HashMap<String, Object> userMap = new HashMap<>();
+        userMap.put("username", username);
+        userMap.put("fullname", profilename);
+        userMap.put("status", status);
+        userMap.put("address", address);
+        userMap.put("gender", gender);
+        userMap.put("organization", organization);
 
-    private void UpdateAccountInfo(String username, String profilename, String status, String address, String gender, String organization) {
-        HashMap userMap = new HashMap();
-            userMap.put("username", username);
-            userMap.put("fullname", profilename);
-            userMap.put("status", status);
-            userMap.put("address", address);
-            userMap.put("gender", gender);
-            userMap.put("organization", organization);
-
-        settingsUserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+        settingsUserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task task) {
+            public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    SendUserToMainActivity();
                     Toast.makeText(SettingsActivity.this, "Account Settings updated successfully", Toast.LENGTH_SHORT).show();
-                    loadingBar.dismiss();
-                }
-                else{
+                } else {
                     Toast.makeText(SettingsActivity.this, "Error Occurred while updating account information", Toast.LENGTH_SHORT).show();
-                    loadingBar.dismiss();
                 }
             }
         });
     }
-    private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(SettingsActivity.this, MainActivity.class);
-        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(mainIntent);
-        finish();
+
+    // Handle the back button press in the action bar (toolbar)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

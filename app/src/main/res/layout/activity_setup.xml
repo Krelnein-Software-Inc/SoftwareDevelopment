@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,70 +12,76 @@
         android:id="@+id/setup_profile_image"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="81dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="105dp"
-        android:src="@drawable/profile" />
+        android:src="@drawable/profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.99"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/setup_username"
         android:layout_width="370dp"
         android:layout_height="64dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="315dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/inputs"
         android:drawableLeft="@drawable/username"
         android:ems="10"
-        android:gravity="start|top"
         android:hint="Username"
         android:inputType="textMultiLine"
         android:padding="18dp"
-        android:textColorHint="#000000" />
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/setup_profile_image" />
 
     <EditText
         android:id="@+id/setup_full_name"
         android:layout_width="370dp"
         android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="371dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/inputs"
         android:drawableLeft="@drawable/name"
         android:ems="10"
-        android:gravity="start|top"
         android:hint="Full Name"
         android:inputType="textMultiLine"
         android:padding="18dp"
-        android:textColorHint="#000000" />
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setup_username" />
 
     <EditText
         android:id="@+id/setup_address_name"
         android:layout_width="370dp"
         android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="282dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/inputs"
         android:drawableLeft="@drawable/baseline_add_location_24"
         android:ems="10"
-        android:gravity="start|top"
         android:hint="Address"
         android:inputType="textMultiLine"
         android:padding="18dp"
         android:textAlignment="textStart"
-        android:textColorHint="#000000" />
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setup_full_name" />
 
     <Button
         android:id="@+id/setup_information_button"
         android:layout_width="133dp"
         android:layout_height="61dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="179dp"
+        android:layout_marginBottom="124dp"
         android:hint="Save"
-        android:textColorHint="#FFFFFF" />
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setup_address_name" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login"
-    tools:context=".PostActivity">
+    android:background="@drawable/login">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/update_post_page_toolbar"
@@ -13,52 +13,60 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintTop_toTopOf="parent">
 
+
+    </androidx.appcompat.widget.Toolbar>
 
     <EditText
         android:id="@+id/post_description"
-        android:layout_width="wrap_content"
-        android:layout_height="539dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+        android:layout_width="370dp"
+        android:layout_height="480dp"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="101dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="88dp"
         android:background="@drawable/inputs"
         android:ems="10"
         android:gravity="start|top"
         android:hint="What's on your Mind?"
         android:inputType="textMultiLine"
         android:minHeight="48dp"
-        android:padding="15dp"
+        android:padding="25dp"
         android:textAlignment="textStart"
-        android:textSize="22dp" />
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/update_post_page_toolbar"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/select_post_image"
         android:layout_width="311dp"
         android:layout_height="274dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="291dp"
         android:background="@color/white"
         android:contentDescription="Select Image"
         android:outlineAmbientShadowColor="@color/white"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/post_description"
+        app:layout_constraintEnd_toEndOf="@+id/post_description"
+        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintStart_toStartOf="@id/post_description"
+        app:layout_constraintTop_toTopOf="@id/post_description"
+        app:layout_constraintVertical_bias="0.577"
         app:srcCompat="@drawable/select_image" />
 
     <Button
         android:id="@+id/update_post_button"
         android:layout_width="159dp"
         android:layout_height="58dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="575dp"
-        android:layout_marginEnd="26dp"
-        android:text="Update Post" />
+        android:text="Update Post"
+        app:layout_constraintBottom_toBottomOf="@+id/post_description"
+        app:layout_constraintEnd_toEndOf="@id/post_description"
+        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintStart_toStartOf="@+id/post_description"
+        app:layout_constraintTop_toBottomOf="@+id/select_post_image"
+        app:layout_constraintVertical_bias="0.571" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

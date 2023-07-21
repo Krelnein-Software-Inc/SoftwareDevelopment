@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
+    <!-- Existing LinearLayout with CircleImageView -->
     <LinearLayout
         android:layout_width="389dp"
         android:layout_height="340dp"
@@ -13,10 +16,11 @@
         android:background="@color/white"
         android:orientation="vertical">
 
+        <!-- Contents inside the existing LinearLayout -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
             android:orientation="horizontal"
             android:padding="5dp">
 
@@ -26,9 +30,7 @@
                 android:layout_height="60dp"
                 android:layout_marginLeft="4dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile">
-
-            </de.hdodenhof.circleimageview.CircleImageView>
+                android:src="@drawable/profile" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,14 +47,13 @@
                     android:textAlignment="textStart"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:orientation="horizontal"
-                    android:padding="2dp"></LinearLayout>
+                    android:padding="2dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -65,8 +66,9 @@
                         android:layout_height="wrap_content"
                         android:text="has been updated a post"
                         android:textColor="@android:color/darker_gray"
+                        android:layout_marginLeft="5dp"
                         android:textSize="13sp"
-                        android:textStyle="bold"></TextView>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/user_profile_date"
@@ -75,7 +77,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="Date"
                         android:textColor="@android:color/black"
-                        android:textSize="13sp"></TextView>
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/user_profile_time"
@@ -84,7 +86,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="Time"
                         android:textColor="@android:color/black"
-                        android:textSize="13sp"></TextView>
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -101,9 +103,7 @@
             android:padding="3dp"
             android:text="Post Description"
             android:textColor="@color/black"
-            android:textSize="14sp">
-
-        </TextView>
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/user_profile_image"
@@ -111,9 +111,7 @@
             android:layout_height="190dp"
             android:layout_margin="3dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop">
-
-        </ImageView>
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,9 +128,7 @@
                 android:backgroundTint="@color/white"
                 android:src="@drawable/dislike"
                 android:contentDescription="Like Button"
-                android:padding="8dp">
-
-            </ImageButton>
+                android:padding="8dp" />
 
             <TextView
                 android:id="@+id/user_display_no_of_likes"
@@ -142,7 +138,7 @@
                 android:text="0 likes"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/user_comment_button"
@@ -152,15 +148,13 @@
                 android:backgroundTint="@color/white"
                 android:src="@drawable/comment"
                 android:contentDescription="Comment Button"
-                android:padding="8dp">
-
-            </ImageButton>
-
-
-
+                android:padding="8dp" />
         </LinearLayout>
-
 
     </LinearLayout>
 
+    <!-- ConstraintLayout inside the parent RelativeLayout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

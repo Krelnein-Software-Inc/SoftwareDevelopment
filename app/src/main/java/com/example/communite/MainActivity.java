@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if (dataSnapshot.hasChild("profileimage")) {
                             String image = dataSnapshot.child("profileimage").getValue().toString();
-                            Picasso.get().load(image).placeholder(R.drawable.profile_icon).into(navProfileImage);
+                            Picasso.get().load(image).placeholder(R.drawable.profile).into(navProfileImage);
                         } else {
                             // User data does not exist, redirect to SetupActivity
                             SendUserToSetupActivity();
@@ -316,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
         Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
         setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(setupIntent);
-        finish();
     }
 
     private void SendUserToLoginActivity() {
@@ -329,6 +328,10 @@ public class MainActivity extends AppCompatActivity {
     private void SendUserToSettingsActivity() {
         Intent SettingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(SettingsIntent);
+    }
+    private void SendUserToMainActivity() {
+        Intent MainIntent = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(MainIntent);
     }
 
 
@@ -349,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
             SendUserToProfileActivity();
             Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
         } else if (itemId == R.id.nav_home) {
-
+            SendUserToMainActivity();
         } else if (itemId == R.id.nav_report) {
             Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show();
             SendUserToReportPageActivity();

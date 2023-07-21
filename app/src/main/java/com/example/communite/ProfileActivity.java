@@ -1,10 +1,8 @@
-
 package com.example.communite;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,40 +83,31 @@ public class ProfileActivity extends AppCompatActivity {
         profileUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("ProfileActivity", "onDataChange triggered");
                 if (dataSnapshot.exists()) {
                     if (dataSnapshot.hasChild("profileimage")) {
                         String myProfileImage = dataSnapshot.child("profileimage").getValue(String.class);
-                        if (TextUtils.isEmpty(myProfileImage)) {
-                            Log.d("SettingsActivity", "Profile image is empty or null");
-                        } else {
+                        if (!TextUtils.isEmpty(myProfileImage)) {
                             Picasso.get().load(myProfileImage).placeholder(R.drawable.profile).into(userProfileImage);
                         }
                     }
 
                     if (dataSnapshot.hasChild("fullname")) {
                         String myProfileName = dataSnapshot.child("fullname").getValue(String.class);
-                        if (TextUtils.isEmpty(myProfileName)) {
-                            Log.d("SettingsActivity", "Profile name is empty or null");
-                        } else {
+                        if (!TextUtils.isEmpty(myProfileName)) {
                             userProfName.setText(myProfileName);
                         }
                     }
 
                     if (dataSnapshot.hasChild("status")) {
                         String myProfileStatus = dataSnapshot.child("status").getValue(String.class);
-                        if (TextUtils.isEmpty(myProfileStatus)) {
-                            Log.d("SettingsActivity", "Profile status is empty or null");
-                        } else {
+                        if (!TextUtils.isEmpty(myProfileStatus)) {
                             userStatus.setText(myProfileStatus);
                         }
                     }
 
                     if (dataSnapshot.hasChild("organization")) {
                         String myOrganization = dataSnapshot.child("organization").getValue(String.class);
-                        if (TextUtils.isEmpty(myOrganization)) {
-                            Log.d("SettingsActivity", "Organization is empty or null");
-                        } else {
+                        if (!TextUtils.isEmpty(myOrganization)) {
                             userOrganization.setText(myOrganization);
                         }
                     }

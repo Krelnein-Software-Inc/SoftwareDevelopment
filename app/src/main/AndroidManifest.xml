@@ -9,7 +9,7 @@
     <application
         android:allowBackup="true"
         android:enableOnBackInvokedCallback="true"
-        android:icon="@drawable/splash"
+        android:icon="@drawable/companylogo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/companylogo"
         android:supportsRtl="true"

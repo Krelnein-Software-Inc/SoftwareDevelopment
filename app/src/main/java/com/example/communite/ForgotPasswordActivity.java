@@ -1,8 +1,5 @@
 package com.example.communite;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +10,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     //Declaration
-    Button btnReset, btnBack;
+    Button btnReset;
     EditText edtEmail;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
@@ -35,10 +35,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         //Initializaton
         Change = findViewById(R.id.Change_PasswordWrite);
-        btnBack = findViewById(R.id.Back_button);
         btnReset = findViewById(R.id.Change_button1);
         edtEmail = findViewById(R.id.login_email);
-        progressBar = findViewById(R.id.forgetPasswordProgressbar);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -55,14 +53,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-
-        //Back Button Code
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
 
     }
 

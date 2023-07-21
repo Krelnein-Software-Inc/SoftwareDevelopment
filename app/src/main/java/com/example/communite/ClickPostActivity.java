@@ -32,7 +32,6 @@ public class ClickPostActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String PostKey, currentUserID, databaseUserID, description, image;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +39,6 @@ public class ClickPostActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
-
 
         PostKey = getIntent().getStringExtra("PostKey");
         ClickPostRef = FirebaseDatabase.getInstance("https://communite-f7efa-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Posts").child(PostKey);
@@ -53,7 +51,6 @@ public class ClickPostActivity extends AppCompatActivity {
         DeletePostButton.setVisibility(View.INVISIBLE);
         EditPostButton.setVisibility(View.INVISIBLE);
 
-
         ClickPostRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -63,7 +60,7 @@ public class ClickPostActivity extends AppCompatActivity {
                     databaseUserID = dataSnapshot.child("uid").getValue().toString();
 
                     PostDescription.setText(description);
-                    if (currentUserID.equals(databaseUserID)){
+                    if (currentUserID.equals(databaseUserID)) {
                         DeletePostButton.setVisibility(View.VISIBLE);
                         EditPostButton.setVisibility(View.VISIBLE);
                     }
@@ -96,10 +93,18 @@ public class ClickPostActivity extends AppCompatActivity {
         DeletePostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DeleteCurrentPost ();
+                DeleteCurrentPost();
             }
         });
 
+        // Initialize the ImageView for the back button
+        ImageView backButton = findViewById(R.id.clickpost_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Go back when the back button is clicked
+            }
+        });
     }
 
     private void EditCurrentPost(String description) {
@@ -134,13 +139,12 @@ public class ClickPostActivity extends AppCompatActivity {
         dialog.show();
     }
 
-
-
     private void DeleteCurrentPost() {
         ClickPostRef.removeValue();
         SendUserToMainActivity();
         Toast.makeText(this, "Post has been deleted.", Toast.LENGTH_SHORT).show();
     }
+
     private void SendUserToMainActivity() {
         Intent mainIntent = new Intent(ClickPostActivity.this, MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
