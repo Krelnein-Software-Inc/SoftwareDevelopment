@@ -1,5 +1,6 @@
 package com.example.communite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -54,6 +55,7 @@ public class ReportPageActivity extends AppCompatActivity {
         reportPostAdapter = new ReportPostAdapter(reportsList);
         postsRecyclerView.setAdapter(reportPostAdapter);
 
+
         userPostsRef.orderByChild("uid").equalTo(currentUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -70,8 +72,17 @@ public class ReportPageActivity extends AppCompatActivity {
                 Toast.makeText(ReportPageActivity.this, "Failed to retrieve reports: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+        // Find the back button ImageView and set a click listener
+        ImageView backButton = findViewById(R.id.report_page_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Redirect to the main activity when the back button is clicked
+                Intent mainIntent = new Intent(ReportPageActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+            }
+        });
     }
-
     public class ReportPostAdapter extends RecyclerView.Adapter<ReportPostAdapter.PostViewHolder> {
 
         private List<Reports> reportsList;
