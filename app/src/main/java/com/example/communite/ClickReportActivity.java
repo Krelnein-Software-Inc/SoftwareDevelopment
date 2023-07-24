@@ -30,6 +30,7 @@ public class ClickReportActivity extends AppCompatActivity {
     private Button DeletePostButton, EditPostButton;
     private DatabaseReference ClickPostRef;
     private FirebaseAuth mAuth;
+
     private String PostKey, currentUserID, databaseUserID, description, image;
 
     @Override

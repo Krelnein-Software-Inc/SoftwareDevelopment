@@ -56,6 +56,10 @@ public class ReportPageActivity extends AppCompatActivity {
                 reportsList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Reports reports = snapshot.getValue(Reports.class);
+
+                    // Set the PostKey for each Reports object
+                    reports.setPostKey(snapshot.getKey());
+
                     reportsList.add(reports);
                 }
                 reportPostAdapter.notifyDataSetChanged();
@@ -66,6 +70,7 @@ public class ReportPageActivity extends AppCompatActivity {
                 Toast.makeText(ReportPageActivity.this, "Failed to retrieve reports: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
         // Find the "Add Report" button by its ID
         ImageView addReportButton = findViewById(R.id.add_report_button);
@@ -80,12 +85,14 @@ public class ReportPageActivity extends AppCompatActivity {
             }
         });
     }
+
     public class ReportPostAdapter extends RecyclerView.Adapter<ReportPostAdapter.PostViewHolder> {
 
         private List<Reports> reportsList;
 
         public ReportPostAdapter(List<Reports> reportsList) {
             this.reportsList = reportsList;
+
         }
 
         @NonNull
@@ -99,14 +106,26 @@ public class ReportPageActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
             Reports reports = reportsList.get(position);
 
-            // Bind post data to the ViewHolder views
             holder.setProfileImage(reports.getProfileimage());
             holder.setProfileName(reports.getFullname());
             holder.setPostDescription(reports.getDescription());
             holder.setPostImage(reports.getPostimage());
             holder.setPostDate(reports.getDate());
             holder.setPostTime(reports.getTime());
+
+            final String postKey = reports.getPostKey();
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Redirect to the ClickReportActivity and pass the PostKey as an extra
+                    Intent clickReportIntent = new Intent(ReportPageActivity.this, ClickReportActivity.class);
+                    clickReportIntent.putExtra("PostKey", postKey);
+                    startActivity(clickReportIntent);
+                }
+            });
         }
+
 
         @Override
         public int getItemCount() {

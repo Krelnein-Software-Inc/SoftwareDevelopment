@@ -1,13 +1,14 @@
 package com.example.communite;
 
 public class Reports {
-    public String uid, time, date, postimage, description, profileimage, fullname;
+    private String postKey, uid, time, date, postimage, description, profileimage, fullname;
 
-    public Reports(){
-
+    public Reports() {
+        // Required empty constructor for Firebase
     }
 
-    public Reports(String uid, String time, String date, String postimage, String description, String profileimage, String fullname) {
+    public Reports(String postKey, String uid, String time, String date, String postimage, String description, String profileimage, String fullname) {
+        this.postKey = postKey;
         this.uid = uid;
         this.time = time;
         this.date = date;
@@ -15,6 +16,14 @@ public class Reports {
         this.description = description;
         this.profileimage = profileimage;
         this.fullname = fullname;
+    }
+
+    public String getPostKey() {
+        return postKey;
+    }
+
+    public void setPostKey(String postKey) {
+        this.postKey = postKey;
     }
 
     public String getUid() {
@@ -25,20 +34,20 @@ public class Reports {
         this.uid = uid;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getTime() {
         return time;
     }
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getPostimage() {
