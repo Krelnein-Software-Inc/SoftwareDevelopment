@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,9 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ReportPageActivity extends AppCompatActivity {
 
-    private DatabaseReference userPostsRef;
-    private FirebaseAuth mAuth;
-    private String currentUserId;
+    private DatabaseReference reportsRef;
     private RecyclerView postsRecyclerView;
     private ReportPostAdapter reportPostAdapter;
     private List<Reports> reportsList;
@@ -43,9 +40,7 @@ public class ReportPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_page);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
-        userPostsRef = FirebaseDatabase.getInstance("https://communite-f7efa-default-rtdb.asia-southeast1.firebasedatabase.app")
+        reportsRef = FirebaseDatabase.getInstance("https://communite-f7efa-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference()
                 .child("Reports");
 
@@ -55,8 +50,7 @@ public class ReportPageActivity extends AppCompatActivity {
         reportPostAdapter = new ReportPostAdapter(reportsList);
         postsRecyclerView.setAdapter(reportPostAdapter);
 
-
-        userPostsRef.orderByChild("uid").equalTo(currentUserId).addValueEventListener(new ValueEventListener() {
+        reportsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 reportsList.clear();
@@ -72,6 +66,7 @@ public class ReportPageActivity extends AppCompatActivity {
                 Toast.makeText(ReportPageActivity.this, "Failed to retrieve reports: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
         // Find the back button ImageView and set a click listener
         ImageView backButton = findViewById(R.id.report_page_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
