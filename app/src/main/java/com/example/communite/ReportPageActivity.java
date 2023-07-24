@@ -67,14 +67,16 @@ public class ReportPageActivity extends AppCompatActivity {
             }
         });
 
-        // Find the back button ImageView and set a click listener
-        ImageView backButton = findViewById(R.id.report_page_back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
+        // Find the "Add Report" button by its ID
+        ImageView addReportButton = findViewById(R.id.add_report_button);
+
+        // Set a click listener to the "Add Report" button
+        addReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Redirect to the main activity when the back button is clicked
-                Intent mainIntent = new Intent(ReportPageActivity.this, MainActivity.class);
-                startActivity(mainIntent);
+                // Redirect to the AddReportActivity when the "Add Report" button is clicked
+                Intent addReportIntent = new Intent(ReportPageActivity.this, AddReportActivity.class);
+                startActivity(addReportIntent);
             }
         });
     }

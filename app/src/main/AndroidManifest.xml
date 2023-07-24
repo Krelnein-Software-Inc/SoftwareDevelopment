@@ -15,9 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CommUnite"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ClickReportActivity"
+            android:exported="false" />
         <activity android:name=".AddReportActivity" />
-
         <activity
             android:name=".ReportPageActivity"
             android:label="Report Page" />

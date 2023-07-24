@@ -165,7 +165,7 @@ public class AddReportActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        SendUserToMainActivity();
+                                        SendUserToReportPageActivity();
                                         Toast.makeText(AddReportActivity.this, "New post Updated Successfully", Toast.LENGTH_SHORT).show();
                                         loadingBar.dismiss();
                                     } else {
@@ -206,13 +206,13 @@ public class AddReportActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            SendUserToMainActivity();
+            SendUserToReportPageActivity();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(AddReportActivity.this, MainActivity.class);
-        startActivity(mainIntent);
+    private void SendUserToReportPageActivity() {
+        Intent reportPageIntent = new Intent(AddReportActivity.this, ReportPageActivity.class);
+        startActivity(reportPageIntent);
     }
 }
