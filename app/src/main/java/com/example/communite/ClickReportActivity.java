@@ -152,4 +152,12 @@ public class ClickReportActivity extends AppCompatActivity {
         startActivity(mainIntent);
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        // Redirect the user to the ReportPageActivity when the back button is pressed
+        Intent reportPageIntent = new Intent(ClickReportActivity.this, ReportPageActivity.class);
+        startActivity(reportPageIntent);
+        finish();
+    }
 }
