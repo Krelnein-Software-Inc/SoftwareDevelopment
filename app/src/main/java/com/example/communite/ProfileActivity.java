@@ -138,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.PostViewHolder> {
+    public static class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.PostViewHolder> {
 
         private List<Posts> postList;
 

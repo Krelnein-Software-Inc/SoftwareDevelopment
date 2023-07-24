@@ -33,7 +33,7 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="Description of the image button"
                 android:scaleType="centerCrop"
-                android:src="@drawable/add_post_high" />
+                android:src="@drawable/baseline_add_photo_alternate_24" />
 
         </androidx.appcompat.widget.Toolbar>
 
