@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView forgotPassword;
     private TextView needNewAccountLink;
     private ProgressDialog loadingBar;
-
     private FirebaseAuth mAuth;
 
     @Override
@@ -56,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 AllowingUserToLogin();
             }
         });
+
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,8 +110,10 @@ public class LoginActivity extends AppCompatActivity {
         Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(registerIntent);
     }
+
     private void SendUserToForgotPassword() {
         Intent forgotIntent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(forgotIntent);
     }
+
 }
