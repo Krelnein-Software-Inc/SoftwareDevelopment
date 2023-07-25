@@ -165,6 +165,7 @@ public class ReportPageActivity extends AppCompatActivity {
         public class PostViewHolder extends RecyclerView.ViewHolder {
 
             public ImageView DoneReportButton;
+            public TextView doneText;
             private CircleImageView profileImage;
             private TextView profileName, postDescription, postDate, postTime;
             private ImageView postImage;
@@ -181,6 +182,7 @@ public class ReportPageActivity extends AppCompatActivity {
                 postImage = itemView.findViewById(R.id.report_post_image);
                 reportCommentButton = itemView.findViewById(R.id.report_comment_button);
                 DoneReportButton = itemView.findViewById(R.id.done_button);
+                doneText = itemView.findViewById(R.id.done_text);
 
                 reportCommentButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -254,9 +256,12 @@ public class ReportPageActivity extends AppCompatActivity {
                         if (dataSnapshot.child(postKey).hasChild(currentUserID)) {
                             // User has Done (Liked) the report, set the DoneReportButton to "Liked" state
                             DoneReportButton.setImageResource(R.drawable.baseline_check_box_24);
+                            doneText.setVisibility(View.VISIBLE); // Show the "Accomplished" text
+
                         } else {
                             // User has not Done (Liked) the report, set the DoneReportButton to "Unliked" state
                             DoneReportButton.setImageResource(R.drawable.baseline_check_box_outline_blank_24);
+                            doneText.setVisibility(View.INVISIBLE); // Hide the "Accomplished" text
                         }
                     }
 

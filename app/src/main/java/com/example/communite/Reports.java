@@ -2,6 +2,7 @@ package com.example.communite;
 
 public class Reports {
     private String postKey, uid, time, date, postimage, description, profileimage, fullname;
+    private boolean accomplished; // New field
 
     public Reports() {
         // Required empty constructor for Firebase
@@ -80,5 +81,13 @@ public class Reports {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public boolean isAccomplished() {
+        return accomplished;
+    }
+
+    public void setAccomplished(boolean accomplished) {
+        this.accomplished = accomplished;
     }
 }

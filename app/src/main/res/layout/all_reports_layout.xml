@@ -115,6 +115,22 @@
             app:layout_constraintStart_toStartOf="@id/report_post_description"
             app:layout_constraintTop_toBottomOf="@id/report_post_image" />
 
+        <TextView
+            android:id="@+id/done_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Accomplished"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/report_comment_button"
+            app:layout_constraintHorizontal_bias="0.033"
+            app:layout_constraintStart_toEndOf="@+id/done_button"
+            app:layout_constraintTop_toBottomOf="@+id/report_post_image"
+            app:layout_constraintVertical_bias="0.542" />
+
         <ImageButton
             android:id="@+id/report_comment_button"
             android:layout_width="50dp"
