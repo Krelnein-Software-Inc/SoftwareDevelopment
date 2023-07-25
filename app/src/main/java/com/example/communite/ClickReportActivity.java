@@ -122,7 +122,7 @@ public class ClickReportActivity extends AppCompatActivity {
                 String newDescription = inputField.getText().toString().trim();
                 if (!newDescription.isEmpty()) {
                     ClickPostRef.child("description").setValue(newDescription);
-                    Toast.makeText(ClickReportActivity.this, "Post updated successfully.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClickReportActivity.this, "Report updated successfully.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ClickReportActivity.this, "Please enter a valid description.", Toast.LENGTH_SHORT).show();
                 }
@@ -142,14 +142,14 @@ public class ClickReportActivity extends AppCompatActivity {
 
     private void DeleteCurrentPost() {
         ClickPostRef.removeValue();
-        SendUserToMainActivity();
-        Toast.makeText(this, "Post has been deleted.", Toast.LENGTH_SHORT).show();
+        SendUserToReportPageActivity();
+        Toast.makeText(this, "Report has been deleted.", Toast.LENGTH_SHORT).show();
     }
 
-    private void SendUserToMainActivity() {
-        Intent mainIntent = new Intent(ClickReportActivity.this, MainActivity.class);
-        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(mainIntent);
+    private void SendUserToReportPageActivity() {
+        Intent reportPageIntent = new Intent(ClickReportActivity.this, ReportPageActivity.class);
+        reportPageIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(reportPageIntent);
         finish();
     }
 

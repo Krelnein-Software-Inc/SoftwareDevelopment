@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,6 +72,19 @@ public class ReportPageActivity extends AppCompatActivity {
             }
         });
 
+        // Find the "Report Page Back Button" ImageView by its ID
+        ImageView reportPageBackButton = findViewById(R.id.report_page_back_button);
+
+        // Set an OnClickListener to the "Report Page Back Button" ImageView
+        reportPageBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Go back to the main activity when the back button is clicked
+                onBackPressed();
+            }
+        });
+
+
 
         // Find the "Add Report" button by its ID
         ImageView addReportButton = findViewById(R.id.add_report_button);
@@ -82,6 +96,7 @@ public class ReportPageActivity extends AppCompatActivity {
                 // Redirect to the AddReportActivity when the "Add Report" button is clicked
                 Intent addReportIntent = new Intent(ReportPageActivity.this, AddReportActivity.class);
                 startActivity(addReportIntent);
+
             }
         });
     }
@@ -137,6 +152,7 @@ public class ReportPageActivity extends AppCompatActivity {
             private CircleImageView profileImage;
             private TextView profileName, postDescription, postDate, postTime;
             private ImageView postImage;
+            private ImageButton reportCommentButton;
 
             public PostViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -148,6 +164,24 @@ public class ReportPageActivity extends AppCompatActivity {
                 postDate = itemView.findViewById(R.id.report_date);
                 postTime = itemView.findViewById(R.id.report_time);
                 postImage = itemView.findViewById(R.id.report_post_image);
+                reportCommentButton = itemView.findViewById(R.id.report_comment_button);
+
+                // Set OnClickListener for "Report Comment" button
+                reportCommentButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Redirect to the ReportCommentsActivity and pass the PostKey as an extra
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            Reports reports = reportsList.get(position);
+                            String postKey = reports.getPostKey();
+
+                            Intent reportCommentsIntent = new Intent(v.getContext(), ReportCommentsActivity.class);
+                            reportCommentsIntent.putExtra("PostKey", postKey);
+                            v.getContext().startActivity(reportCommentsIntent);
+                        }
+                    }
+                });
             }
 
             public void setProfileImage(String imageUrl) {

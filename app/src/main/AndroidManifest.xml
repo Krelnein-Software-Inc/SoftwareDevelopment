@@ -16,6 +16,9 @@
         android:theme="@style/Theme.CommUnite"
         tools:targetApi="31">
         <activity
+            android:name=".ReportCommentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ClickReportActivity"
             android:exported="false" />
         <activity android:name=".AddReportActivity" />
