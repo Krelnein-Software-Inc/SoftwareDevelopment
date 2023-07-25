@@ -111,7 +111,7 @@
             android:backgroundTint="@color/white"
             android:contentDescription="Like Button"
             android:padding="8dp"
-            android:src="@drawable/undone"
+            android:src="@drawable/baseline_check_box_outline_blank_24"
             app:layout_constraintStart_toStartOf="@id/report_post_description"
             app:layout_constraintTop_toBottomOf="@id/report_post_image" />
 
