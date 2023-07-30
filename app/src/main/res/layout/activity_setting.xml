@@ -17,9 +17,7 @@
         android:layout_marginEnd="66dp"
         android:backgroundTint="#002AA6"
         android:ems="10"
-        android:gravity="start|top"
         android:hint="Security Settings"
-        android:textAlignment="center"
         android:textColorHint="#001CA8"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -246,10 +244,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_email" />
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
                 android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/Reset_button" />
+
+            <ProgressBar
+                android:id="@+id/forgetPasswordProgressbar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/Reset_button" />
 
 

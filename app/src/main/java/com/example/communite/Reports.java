@@ -17,6 +17,7 @@ public class Reports {
         this.description = description;
         this.profileimage = profileimage;
         this.fullname = fullname;
+        this.accomplished= false;
     }
 
     public String getPostKey() {

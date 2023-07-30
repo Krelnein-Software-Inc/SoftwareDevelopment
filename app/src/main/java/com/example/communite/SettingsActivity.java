@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,11 +39,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private EditText userName, userProfName, userStatus, userAddress, userGender, userOrganization;
+    private EditText userName, userProfName, userStatus, userAddress, userGender, userOrganization, edtEmail;
     private CircleImageView userProfImage;
     private DatabaseReference settingsUserRef;
     private String currentUserId;
     private StorageReference UserProfileImageRef;
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
+    private String strEmail;
 
     final static int Gallery_Pick = 1;
 
@@ -50,14 +55,14 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        ImageView backButton = findViewById(R.id.settings_back_button);
-
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         settingsUserRef = FirebaseDatabase.getInstance("https://communite-f7efa-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference()
                 .child("Users")
                 .child(currentUserId);
         UserProfileImageRef = FirebaseStorage.getInstance("gs://communite-f7efa.appspot.com").getReference().child("Profile Images");
+
+        mAuth = FirebaseAuth.getInstance();
 
         userName = findViewById(R.id.settings_profile_username);
         userProfName = findViewById(R.id.settings_profile_full_name);
@@ -66,6 +71,16 @@ public class SettingsActivity extends AppCompatActivity {
         userGender = findViewById(R.id.settings_user_gender);
         userOrganization = findViewById(R.id.settings_user_organization);
         userProfImage = findViewById(R.id.settings_profile);
+        edtEmail = findViewById(R.id.login_email);
+        progressBar = findViewById(R.id.forgetPasswordProgressbar);
+
+        ImageView backButton = findViewById(R.id.settings_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         settingsUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -97,13 +112,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
         Button updateAccountSettingsButton = findViewById(R.id.update_account_button);
         updateAccountSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,61 +129,19 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivityForResult(galleryIntent, Gallery_Pick);
             }
         });
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Gallery_Pick && resultCode == RESULT_OK && data != null) {
-            Uri imageUri = data.getData();
-
-            CropImage.activity(imageUri)
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAspectRatio(1, 1)
-                    .start(this);
-        }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-
-            if (resultCode == RESULT_OK) {
-                Uri resultUri = result.getUri();
-
-                final StorageReference filePath = UserProfileImageRef.child(currentUserId + ".jpg");
-
-                UploadTask uploadTask = filePath.putFile(resultUri);
-                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri downloadUri) {
-                                    String downloadUrl = downloadUri.toString();
-
-                                    settingsUserRef.child("profileimage").setValue(downloadUrl)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        Toast.makeText(SettingsActivity.this, "Profile image updated successfully", Toast.LENGTH_SHORT);
-                                                    } else {
-                                                        String message = task.getException().getMessage();
-                                                        Toast.makeText(SettingsActivity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            });
-                                }
-                            });
-                        } else {
-                            String message = task.getException().getMessage();
-                            Toast.makeText(SettingsActivity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            } else {
-                Toast.makeText(this, "Error Occurred: Image can't be cropped. Please try again.", Toast.LENGTH_SHORT).show();
+        Button btnReset = findViewById(R.id.Reset_button);
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                strEmail = edtEmail.getText().toString().trim();
+                if (!TextUtils.isEmpty(strEmail)) {
+                    ResetPassword();
+                } else {
+                    edtEmail.setError("Email field can't be empty");
+                }
             }
-        }
+        });
     }
 
     private void validateAccountInfo() {
@@ -224,7 +190,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-    // Handle the back button press in the action bar (toolbar)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -237,5 +202,84 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Gallery_Pick && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+
+            CropImage.activity(imageUri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1, 1)
+                    .start(this);
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+
+                final StorageReference filePath = UserProfileImageRef.child(currentUserId + ".jpg");
+
+                UploadTask uploadTask = filePath.putFile(resultUri);
+                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri downloadUri) {
+                                    String downloadUrl = downloadUri.toString();
+
+                                    settingsUserRef.child("profileimage").setValue(downloadUrl)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(SettingsActivity.this, "Profile image updated successfully", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        String message = task.getException().getMessage();
+                                                        Toast.makeText(SettingsActivity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                }
+                            });
+                        } else {
+                            String message = task.getException().getMessage();
+                            Toast.makeText(SettingsActivity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            } else {
+                Toast.makeText(this, "Error Occurred: Image can't be cropped. Please try again.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void ResetPassword() {
+        progressBar.setVisibility(View.VISIBLE);
+        findViewById(R.id.Reset_button).setVisibility(View.INVISIBLE);
+
+        mAuth.sendPasswordResetEmail(strEmail)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(SettingsActivity.this, "Reset Password link has been sent to your registered Email", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SettingsActivity.this, "Error :- " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.Reset_button).setVisibility(View.VISIBLE);
+                    }
+                });
     }
 }

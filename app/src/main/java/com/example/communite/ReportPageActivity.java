@@ -26,19 +26,21 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ReportPageActivity extends AppCompatActivity {
 
-    private DatabaseReference reportsRef, DoneRef;
+    private DatabaseReference reportsRef, doneRef;
     private RecyclerView postsRecyclerView;
     private ReportPostAdapter reportPostAdapter;
     private FirebaseAuth mAuth;
     private List<Reports> reportsList;
-    String currentUserID;
-    Boolean DoneChecker = false;
+    private Map<String, Integer> accomplishedCountMap;
+    private String currentUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +54,20 @@ public class ReportPageActivity extends AppCompatActivity {
                 .getReference()
                 .child("Reports");
 
+        doneRef = FirebaseDatabase.getInstance("https://communite-f7efa-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Progress");
+
         postsRecyclerView = findViewById(R.id.all_users_report_list);
         postsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         reportsList = new ArrayList<>();
+        accomplishedCountMap = new HashMap<>();
         reportPostAdapter = new ReportPostAdapter(reportsList);
         postsRecyclerView.setAdapter(reportPostAdapter);
-        DoneRef = FirebaseDatabase.getInstance("https://communite-f7efa-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("Progress");
 
         reportsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 reportsList.clear();
+                accomplishedCountMap.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Reports reports = snapshot.getValue(Reports.class);
                     reports.setPostKey(snapshot.getKey());
@@ -73,7 +78,7 @@ public class ReportPageActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ReportPageActivity.this, "Failed to retrieve reports: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ReportPageActivity.this, "Failed to retrieve reports: " + databaseError.getMessage(), Toast.LENGTH_SHORT);
             }
         });
 
@@ -122,39 +127,8 @@ public class ReportPageActivity extends AppCompatActivity {
             holder.setPostTime(reports.getTime());
             holder.setDoneButtonStatus(reports.getPostKey());
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent clickReportIntent = new Intent(ReportPageActivity.this, ClickReportActivity.class);
-                    clickReportIntent.putExtra("PostKey", reports.getPostKey());
-                    startActivity(clickReportIntent);
-                }
-            });
-
-            holder.DoneReportButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DatabaseReference likesRef = DoneRef.child(reports.getPostKey()).child(currentUserID);
-
-                    likesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                // The user has already liked the report, so we remove the like
-                                likesRef.removeValue();
-                            } else {
-                                // The user has not liked the report, so we add the like
-                                likesRef.setValue(true);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            // Handle onCancelled event
-                        }
-                    });
-                }
-            });
+            // Fetch and set the accomplished count for each report
+            fetchAccomplishedCount(reports.getPostKey(), holder);
         }
 
         @Override
@@ -164,12 +138,13 @@ public class ReportPageActivity extends AppCompatActivity {
 
         public class PostViewHolder extends RecyclerView.ViewHolder {
 
-            public ImageView DoneReportButton;
+            public ImageView doneReportButton;
             public TextView doneText;
             private CircleImageView profileImage;
             private TextView profileName, postDescription, postDate, postTime;
             private ImageView postImage;
             private ImageButton reportCommentButton;
+            private TextView accomplishedCountText;
 
             public PostViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -181,8 +156,9 @@ public class ReportPageActivity extends AppCompatActivity {
                 postTime = itemView.findViewById(R.id.report_time);
                 postImage = itemView.findViewById(R.id.report_post_image);
                 reportCommentButton = itemView.findViewById(R.id.report_comment_button);
-                DoneReportButton = itemView.findViewById(R.id.done_button);
+                doneReportButton = itemView.findViewById(R.id.done_button);
                 doneText = itemView.findViewById(R.id.done_text);
+                accomplishedCountText = itemView.findViewById(R.id.accomplished_count_text);
 
                 reportCommentButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -195,6 +171,14 @@ public class ReportPageActivity extends AppCompatActivity {
                             reportCommentsIntent.putExtra("PostKey", postKey);
                             v.getContext().startActivity(reportCommentsIntent);
                         }
+                    }
+                });
+
+                doneReportButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Reports reports = reportsList.get(getAdapterPosition());
+                        toggleAccomplishedStatus(reports.getPostKey());
                     }
                 });
             }
@@ -250,17 +234,16 @@ public class ReportPageActivity extends AppCompatActivity {
             }
 
             public void setDoneButtonStatus(String postKey) {
-                DoneRef.addValueEventListener(new ValueEventListener() {
+                doneRef.child(postKey).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.child(postKey).hasChild(currentUserID)) {
-                            // User has Done (Liked) the report, set the DoneReportButton to "Liked" state
-                            DoneReportButton.setImageResource(R.drawable.baseline_check_box_24);
+                        if (dataSnapshot.hasChild(currentUserID)) {
+                            // User has accomplished the report, set the doneReportButton to "Liked" state
+                            doneReportButton.setImageResource(R.drawable.baseline_check_box_24);
                             doneText.setVisibility(View.VISIBLE); // Show the "Accomplished" text
-
                         } else {
-                            // User has not Done (Liked) the report, set the DoneReportButton to "Unliked" state
-                            DoneReportButton.setImageResource(R.drawable.baseline_check_box_outline_blank_24);
+                            // User has not accomplished the report, set the doneReportButton to "Unliked" state
+                            doneReportButton.setImageResource(R.drawable.baseline_check_box_outline_blank_24);
                             doneText.setVisibility(View.INVISIBLE); // Hide the "Accomplished" text
                         }
                     }
@@ -271,6 +254,52 @@ public class ReportPageActivity extends AppCompatActivity {
                     }
                 });
             }
+
+            public void setAccomplishedCount(int count) {
+                if (count > 0) {
+                    accomplishedCountText.setVisibility(View.VISIBLE);
+                    accomplishedCountText.setText(String.valueOf(count));
+                } else {
+                    accomplishedCountText.setVisibility(View.GONE);
+                }
+            }
+        }
+
+        private void fetchAccomplishedCount(String postKey, PostViewHolder holder) {
+            doneRef.child(postKey).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    int count = (int) dataSnapshot.getChildrenCount();
+                    accomplishedCountMap.put(postKey, count);
+                    holder.setAccomplishedCount(count);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle onCancelled event
+                }
+            });
+        }
+
+        private void toggleAccomplishedStatus(String postKey) {
+            DatabaseReference reportRef = doneRef.child(postKey).child(currentUserID);
+            reportRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // The user has already accomplished the report, so we remove the accomplished status
+                        reportRef.removeValue();
+                    } else {
+                        // The user has not accomplished the report, so we add the accomplished status
+                        reportRef.setValue(true);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle onCancelled event
+                }
+            });
         }
     }
 }
