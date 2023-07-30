@@ -37,6 +37,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         Change = findViewById(R.id.Change_PasswordWrite);
         btnReset = findViewById(R.id.Change_button1);
         edtEmail = findViewById(R.id.login_email);
+        progressBar = findViewById(R.id.forgetPasswordProgressbar);
 
         mAuth = FirebaseAuth.getInstance();
 

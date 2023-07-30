@@ -18,6 +18,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <ProgressBar
+        android:id="@+id/forgetPasswordProgressbar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/Change_button1"
+        app:layout_constraintEnd_toEndOf="@+id/Change_button1"
+        app:layout_constraintStart_toStartOf="@+id/Change_button1"
+        app:layout_constraintTop_toBottomOf="@+id/login_email" />
+
     <TextView
         android:id="@+id/Change_PasswordWrite"
         android:layout_width="wrap_content"

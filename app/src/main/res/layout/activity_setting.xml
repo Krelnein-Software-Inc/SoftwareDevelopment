@@ -156,6 +156,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/settings_user_address" />
 
+            <ProgressBar
+                android:id="@+id/forgetPasswordProgressbar4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/Reset_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_email" />
+
             <EditText
                 android:id="@+id/settings_user_organization"
                 android:layout_width="340dp"
