@@ -3,6 +3,7 @@ package com.example.communite;
 public class Posts {
     public String uid, time, date, postimage, description, profileimage, fullname;
 
+
     public Posts(){
 
     }

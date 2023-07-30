@@ -58,6 +58,7 @@
         android:padding="10dp"
         android:textAlignment="viewStart"
         android:textColorHint="#000000"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"

@@ -127,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(MainActivity.this, "Error occurred: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
             AddNewPostButton.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>()
                 .setQuery(PostsRef, Posts.class)
                 .build();
+
 
         FirebaseRecyclerAdapter<Posts, PostViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Posts, PostViewHolder>(options) {
             @Override
