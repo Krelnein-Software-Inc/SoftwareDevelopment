@@ -20,7 +20,7 @@
 
     <EditText
         android:id="@+id/report_description"
-        android:layout_width="370dp"
+        android:layout_width="340dp"
         android:layout_height="480dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -43,7 +43,7 @@
 
     <ImageButton
         android:id="@+id/report_image"
-        android:layout_width="311dp"
+        android:layout_width="300dp"
         android:layout_height="274dp"
         android:background="@android:color/transparent"
         android:contentDescription="Select Image"
@@ -64,6 +64,7 @@
         android:layout_width="159dp"
         android:layout_height="58dp"
         android:text="Submit Report"
+        android:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/report_description"
         app:layout_constraintEnd_toEndOf="@id/report_description"
         app:layout_constraintHorizontal_bias="0.853"

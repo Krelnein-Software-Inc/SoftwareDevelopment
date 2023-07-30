@@ -356,20 +356,20 @@ public class MainActivity extends AppCompatActivity {
             SendUserToPostActivity();
         } else if (itemId == R.id.nav_profile) {
             SendUserToProfileActivity();
-            Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Profile", Toast.LENGTH_SHORT);
         } else if (itemId == R.id.nav_home) {
             SendUserToMainActivity();
         } else if (itemId == R.id.nav_report) {
-            Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Report", Toast.LENGTH_SHORT);
             SendUserToReportPageActivity();
         } else if (itemId == R.id.nav_settings) {
-            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT);
             SendUserToSettingsActivity();
         } else if (itemId == R.id.nav_about) {
-            Toast.makeText(this, "About Us", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "About Us", Toast.LENGTH_SHORT);
             SendUserToAboutUsActivity();
         } else if (itemId == R.id.nav_Logout) {
-            Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Logout", Toast.LENGTH_SHORT);
             mAuth.signOut();
             SendUserToLoginActivity();
         }

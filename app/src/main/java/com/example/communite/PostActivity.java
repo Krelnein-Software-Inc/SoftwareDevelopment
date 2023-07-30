@@ -97,7 +97,7 @@ public class PostActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(Description)) {
             Toast.makeText(this, "Please write post description", Toast.LENGTH_SHORT).show();
         } else {
-            loadingBar.setTitle("Add New Post");
+            loadingBar.setTitle("Adding New Post");
             loadingBar.setMessage("Please wait while we are updating your new post");
             loadingBar.setCanceledOnTouchOutside(true);
             loadingBar.show();
@@ -128,7 +128,7 @@ public class PostActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 downloadUrl = task.getResult().toString();
-                                Toast.makeText(PostActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PostActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT);
                                 SavingPostInformationToDatabase(); // Call method to save post information
                             } else {
                                 String message = task.getException().getMessage();
@@ -170,7 +170,7 @@ public class PostActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         SendUserToMainActivity();
-                                        Toast.makeText(PostActivity.this, "New post Updated Successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PostActivity.this, "New post Updated Successfully", Toast.LENGTH_SHORT);
                                         loadingBar.dismiss();
                                     } else {
                                         Toast.makeText(PostActivity.this, "Error Occurred while updating your post", Toast.LENGTH_SHORT).show();

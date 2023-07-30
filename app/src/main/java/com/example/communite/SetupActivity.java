@@ -131,7 +131,6 @@ public class SetupActivity extends AppCompatActivity {
                 loadingBar.setTitle("Profile Image");
                 loadingBar.setMessage("Please wait while we are updating your profile image");
                 loadingBar.setCanceledOnTouchOutside(true);
-                loadingBar.show();
 
                 Uri resultUri = result.getUri();
 
@@ -152,7 +151,7 @@ public class SetupActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        Toast.makeText(SetupActivity.this, "Profile Image stored successfully", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(SetupActivity.this, "Profile Image stored successfully", Toast.LENGTH_SHORT);
                                                         loadingBar.dismiss();
                                                     } else {
                                                         String message = task.getException().getMessage();
@@ -206,7 +205,7 @@ public class SetupActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(SetupActivity.this, "Your Account is created Successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(SetupActivity.this, "Your Account is created Successfully", Toast.LENGTH_LONG);
                         loadingBar.dismiss();
                         Log.d("SetupActivity", "SaveAccountSetUpInformation: Account saved successfully");
                         SendUserToMainActivity();

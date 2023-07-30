@@ -177,7 +177,7 @@ public class CommentsActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(CommentsActivity.this, "You have commented successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CommentsActivity.this, "You have commented successfully", Toast.LENGTH_SHORT);
                             } else {
                                 Toast.makeText(CommentsActivity.this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
                             }

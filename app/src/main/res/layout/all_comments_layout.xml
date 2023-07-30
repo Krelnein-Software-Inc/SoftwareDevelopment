@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
                 android:text="Comment text will display here"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

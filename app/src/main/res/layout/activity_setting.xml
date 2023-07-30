@@ -11,9 +11,9 @@
 
     <TextView
         android:id="@+id/Settings_text"
-        android:layout_width="279dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_width="226dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="66dp"
         android:backgroundTint="#002AA6"
         android:ems="10"
@@ -23,7 +23,7 @@
         android:textColorHint="#001CA8"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.915"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,10 +35,10 @@
         android:contentDescription="Arrow Back"
         app:layout_constraintBottom_toBottomOf="@+id/Settings_text"
         app:layout_constraintEnd_toStartOf="@+id/Settings_text"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.379"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.615"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
     <ScrollView
@@ -47,9 +47,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Settings_text"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -57,14 +58,13 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/settings_profile"
-                android:layout_width="201dp"
+                android:layout_width="200dp"
                 android:layout_height="160dp"
-                android:layout_marginStart="107dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/profile"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.517"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,6 +77,7 @@
                 android:layout_marginEnd="40dp"
                 android:background="@drawable/inputs"
                 android:hint="Profile Status"
+                android:textColorHint="@color/black"
                 android:padding="30dp"
                 android:textAlignment="center"
                 android:textColor="@color/black"
@@ -89,11 +90,12 @@
 
             <EditText
                 android:id="@+id/settings_profile_username"
-                android:layout_width="386dp"
+                android:layout_width="340dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="23dp"
                 android:background="@drawable/inputs"
                 android:hint="Username"
+                android:textColorHint="@color/black"
                 android:padding="12dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
@@ -105,27 +107,29 @@
 
             <EditText
                 android:id="@+id/settings_profile_full_name"
-                android:layout_width="386dp"
+                android:layout_width="340dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="23dp"
                 android:background="@drawable/inputs"
                 android:hint="Profile Name"
+                android:textColorHint="@color/black"
                 android:padding="12dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.507"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/settings_profile_username" />
 
             <EditText
                 android:id="@+id/settings_user_address"
-                android:layout_width="386dp"
+                android:layout_width="340dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="23dp"
                 android:background="@drawable/inputs"
                 android:hint="Address"
+                android:textColorHint="@color/black"
                 android:padding="12dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
@@ -137,11 +141,12 @@
 
             <EditText
                 android:id="@+id/settings_user_gender"
-                android:layout_width="386dp"
+                android:layout_width="340dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="23dp"
                 android:background="@drawable/inputs"
                 android:hint="Gender"
+                android:textColorHint="@color/black"
                 android:padding="12dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
@@ -153,11 +158,12 @@
 
             <EditText
                 android:id="@+id/settings_user_organization"
-                android:layout_width="386dp"
+                android:layout_width="340dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="23dp"
                 android:background="@drawable/inputs"
                 android:hint="Organization"
+                android:textColorHint="@color/black"
                 android:padding="12dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
@@ -172,6 +178,7 @@
                 android:layout_width="292dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="19dp"
+                android:backgroundTint="@color/colorPrimary"
                 android:text="SAVE CHANGES"
                 android:textAlignment="center"
                 android:textSize="20sp"
@@ -186,6 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:text="To change password, enter your registered email ID to send the reset password link to your email"
+                android:textColorHint="@color/black"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -195,7 +203,7 @@
 
             <EditText
                 android:id="@+id/login_email"
-                android:layout_width="370dp"
+                android:layout_width="340dp"
                 android:layout_height="64dp"
                 android:layout_marginTop="56dp"
                 android:background="@drawable/inputs"
@@ -216,6 +224,7 @@
                 android:layout_width="292dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
+                android:backgroundTint="@color/colorPrimary"
                 android:text="RESET"
                 android:textAlignment="center"
                 android:textSize="20sp"

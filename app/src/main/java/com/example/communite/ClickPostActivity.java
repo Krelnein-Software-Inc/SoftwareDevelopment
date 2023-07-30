@@ -121,7 +121,7 @@ public class ClickPostActivity extends AppCompatActivity {
                 String newDescription = inputField.getText().toString().trim();
                 if (!newDescription.isEmpty()) {
                     ClickPostRef.child("description").setValue(newDescription);
-                    Toast.makeText(ClickPostActivity.this, "Post updated successfully.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClickPostActivity.this, "Post updated successfully.", Toast.LENGTH_SHORT);
                 } else {
                     Toast.makeText(ClickPostActivity.this, "Please enter a valid description.", Toast.LENGTH_SHORT).show();
                 }

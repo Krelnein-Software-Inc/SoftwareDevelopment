@@ -52,7 +52,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/profile_posts_recycler_view"
-                android:layout_width="415dp"
+                android:layout_width="match_parent"
                 android:layout_height="523dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -95,8 +95,8 @@
                 android:id="@+id/back_button"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="368dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:contentDescription="Arrow Back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

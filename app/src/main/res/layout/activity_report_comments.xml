@@ -23,13 +23,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/report_comment_list"
-        android:layout_width="398dp"
-        android:layout_height="595dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/report_comment_input"
+        android:layout_width="match_parent"
+        android:layout_height="588dp"
+        app:layout_constraintBottom_toTopOf="@+id/report_comment_input"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.925" />
 
     <EditText
         android:id="@+id/report_comment_input"
@@ -38,8 +39,10 @@
         android:layout_margin="10dp"
         android:background="@drawable/inputs"
         android:hint="Write a comment..."
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:inputType="textMultiLine"
-        android:padding="15dp"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

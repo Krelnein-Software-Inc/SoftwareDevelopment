@@ -38,6 +38,8 @@
         android:layout_margin="10dp"
         android:background="@drawable/inputs"
         android:hint="Write a comment..."
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:inputType="textMultiLine"
         android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

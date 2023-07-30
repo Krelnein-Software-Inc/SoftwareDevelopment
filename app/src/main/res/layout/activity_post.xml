@@ -21,7 +21,7 @@
 
     <EditText
         android:id="@+id/post_description"
-        android:layout_width="370dp"
+        android:layout_width="340dp"
         android:layout_height="480dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -30,6 +30,8 @@
         android:ems="10"
         android:gravity="start|top"
         android:hint="What's on your Mind?"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:inputType="textMultiLine"
         android:minHeight="48dp"
         android:padding="25dp"
@@ -44,7 +46,7 @@
 
     <ImageButton
         android:id="@+id/select_post_image"
-        android:layout_width="311dp"
+        android:layout_width="300dp"
         android:layout_height="274dp"
         android:background="@color/white"
         android:contentDescription="Select Image"
@@ -65,6 +67,7 @@
         android:layout_width="159dp"
         android:layout_height="58dp"
         android:text="Update Post"
+        android:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/post_description"
         app:layout_constraintEnd_toEndOf="@id/post_description"
         app:layout_constraintHorizontal_bias="0.933"

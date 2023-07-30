@@ -16,17 +16,16 @@
         app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintHorizontal_bias="0.269"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/nav_user_full_name"
-        android:layout_width="340dp"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="1dp"
-        android:layout_marginBottom="9dp"
         android:text="username"
         android:textAlignment="center"
         android:textColor="@color/design_default_color_background"
@@ -35,9 +34,9 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/nav_profile_image"
-        app:layout_constraintVertical_bias="0.909" />
+        app:layout_constraintVertical_bias="0.905" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

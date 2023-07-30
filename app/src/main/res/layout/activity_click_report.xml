@@ -40,7 +40,7 @@
 
     <TextView
         android:id="@+id/report_post_description"
-        android:layout_width="380dp"
+        android:layout_width="340dp"
         android:layout_height="426dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="112dp"
@@ -58,7 +58,7 @@
 
     <ImageView
         android:id="@+id/report_post_image"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="357dp"
         android:layout_marginStart="23dp"
         android:layout_marginEnd="23dp"
@@ -72,25 +72,27 @@
 
     <Button
         android:id="@+id/report_edit_post_button"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:layout_width="304dp"
+        android:layout_height="56dp"
+        android:backgroundTint="@color/colorPrimary"
         android:text="EDIT REPORT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/report_post_description"
-        app:layout_constraintVertical_bias="0.195" />
+        app:layout_constraintVertical_bias="0.27" />
 
     <Button
         android:id="@+id/report_delete_post_button"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:layout_width="304dp"
+        android:layout_height="56dp"
         android:layout_marginTop="5dp"
+        android:backgroundTint="@color/colorPrimary"
         android:text="DELETE REPORT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/report_edit_post_button"
         app:layout_constraintVertical_bias="0.0" />

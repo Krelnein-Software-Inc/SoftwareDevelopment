@@ -23,7 +23,7 @@
 
     <EditText
         android:id="@+id/login_email"
-        android:layout_width="390dp"
+        android:layout_width="340dp"
         android:layout_height="64dp"
         android:layout_marginTop="324dp"
         android:background="@drawable/inputs"
@@ -33,6 +33,7 @@
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:textAlignment="viewStart"
+        android:textColor="@color/black"
         android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,7 @@
 
     <EditText
         android:id="@+id/login_password"
-        android:layout_width="390dp"
+        android:layout_width="340dp"
         android:layout_height="64dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/inputs"
@@ -50,6 +51,7 @@
         android:inputType="textPassword"
         android:padding="10dp"
         android:textAlignment="viewStart"
+        android:textColor="@color/black"
         android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.523"
@@ -89,16 +91,29 @@
         app:layout_constraintVertical_bias="0.219" />
 
     <TextView
+        android:id="@+id/register_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an Account?"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.277"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_button"
+        app:layout_constraintVertical_bias="0.145" />
+
+    <TextView
         android:id="@+id/register_account_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Don't have an Account? Create an Account"
+        android:text="Create an Account"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintStart_toEndOf="@+id/register_account"
         app:layout_constraintTop_toBottomOf="@+id/login_button"
-        app:layout_constraintVertical_bias="0.018" />
+        app:layout_constraintVertical_bias="0.145" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

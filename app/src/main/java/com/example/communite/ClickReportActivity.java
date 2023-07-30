@@ -122,7 +122,7 @@ public class ClickReportActivity extends AppCompatActivity {
                 String newDescription = inputField.getText().toString().trim();
                 if (!newDescription.isEmpty()) {
                     ClickPostRef.child("description").setValue(newDescription);
-                    Toast.makeText(ClickReportActivity.this, "Report updated successfully.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ClickReportActivity.this, "Report updated successfully.", Toast.LENGTH_SHORT);
                 } else {
                     Toast.makeText(ClickReportActivity.this, "Please enter a valid description.", Toast.LENGTH_SHORT).show();
                 }
@@ -143,7 +143,7 @@ public class ClickReportActivity extends AppCompatActivity {
     private void DeleteCurrentPost() {
         ClickPostRef.removeValue();
         SendUserToReportPageActivity();
-        Toast.makeText(this, "Report has been deleted.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Report has been deleted.", Toast.LENGTH_SHORT);
     }
 
     private void SendUserToReportPageActivity() {

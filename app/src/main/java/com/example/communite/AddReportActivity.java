@@ -72,7 +72,7 @@ public class AddReportActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Update Post");
+        getSupportActionBar().setTitle("Update Report");
 
         SelectPostImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +124,7 @@ public class AddReportActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 downloadUrl = task.getResult().toString();
-                                Toast.makeText(AddReportActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddReportActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT);
                                 SavingPostInformationToDatabase(); // Call method to save post information
                             } else {
                                 String message = task.getException().getMessage();
@@ -166,7 +166,7 @@ public class AddReportActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         SendUserToReportPageActivity();
-                                        Toast.makeText(AddReportActivity.this, "New post Updated Successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AddReportActivity.this, "New post Updated Successfully", Toast.LENGTH_SHORT);
                                         loadingBar.dismiss();
                                     } else {
                                         Toast.makeText(AddReportActivity.this, "Error Occurred while updating your post", Toast.LENGTH_SHORT).show();

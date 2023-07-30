@@ -157,7 +157,7 @@ public class SettingsActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        Toast.makeText(SettingsActivity.this, "Profile image updated successfully", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(SettingsActivity.this, "Profile image updated successfully", Toast.LENGTH_SHORT);
                                                     } else {
                                                         String message = task.getException().getMessage();
                                                         Toast.makeText(SettingsActivity.this, "Error Occurred: " + message, Toast.LENGTH_SHORT).show();
