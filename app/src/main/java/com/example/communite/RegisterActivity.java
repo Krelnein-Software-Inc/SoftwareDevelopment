@@ -1,8 +1,5 @@
 package com.example.communite;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,13 +7,17 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -24,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button CreateAccountButton;
     private ProgressDialog loadingBar;
     private FirebaseAuth mAuth;
-
+    private boolean isTermsChecked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,26 @@ public class RegisterActivity extends AppCompatActivity {
         CreateAccountButton = findViewById(R.id.register_create_account);
         loadingBar = new ProgressDialog(this);
 
+        ImageButton checkboxImageButton = findViewById(R.id.checkbox_image_button);
+        checkboxImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle the checkbox state when clicked
+                isTermsChecked = !isTermsChecked;
+                updateCheckboxDrawable();
+            }
+        });
+
+        TextView termsConditionTextView = findViewById(R.id.terms_condition);
+        termsConditionTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Redirect to the TermsAndConditionActivity when the text is clicked
+                Intent intent = new Intent(RegisterActivity.this, TermsandConditionActivity.class);
+                startActivity(intent);
+            }
+        });
+
         CreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,12 +68,12 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            SendUserToMainActivity();
+    private void updateCheckboxDrawable() {
+        ImageButton checkboxImageButton = findViewById(R.id.checkbox_image_button);
+        if (isTermsChecked) {
+            checkboxImageButton.setImageResource(R.drawable.tc_greencheck);
+        } else {
+            checkboxImageButton.setImageResource(R.drawable.tc_checkbox);
         }
     }
 
@@ -69,6 +90,8 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(RegisterActivity.this, "Please confirm your Password", Toast.LENGTH_SHORT).show();
         } else if (!password.equals(confirmPassword)) {
             Toast.makeText(RegisterActivity.this, "Your password does not match with your confirm password", Toast.LENGTH_SHORT).show();
+        } else if (!isTermsChecked) {
+            Toast.makeText(RegisterActivity.this, "Please agree with the Terms and Conditions", Toast.LENGTH_SHORT).show();
         } else {
             loadingBar.setTitle("Creating New Account");
             loadingBar.setMessage("Please wait while we are creating your new account");
@@ -96,7 +119,6 @@ public class RegisterActivity extends AppCompatActivity {
         Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
         setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(setupIntent);
-
     }
 
     private void SendUserToMainActivity() {
@@ -105,3 +127,4 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(mainIntent);
     }
 }
+
