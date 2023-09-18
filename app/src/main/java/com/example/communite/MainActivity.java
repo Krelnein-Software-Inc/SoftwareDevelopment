@@ -330,6 +330,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(SettingsIntent);
     }
 
+    private void SendUserToNotificationActivity() {
+        Intent SettingsIntent = new Intent(MainActivity.this, NotificationActivity.class);
+        startActivity(SettingsIntent);
+    }
+
 
     private void SendUserToMainActivity() {
         Intent MainIntent = new Intent(MainActivity.this, MainActivity.class);
@@ -361,6 +366,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (itemId == R.id.nav_settings) {
             Toast.makeText(this, "Settings", Toast.LENGTH_SHORT);
             SendUserToSettingsActivity();
+        }else if (itemId == R.id.nav_notification) {
+            Toast.makeText(this, "Notification", Toast.LENGTH_SHORT);
+            SendUserToNotificationActivity();
         } else if (itemId == R.id.nav_Logout) {
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT);
             mAuth.signOut();

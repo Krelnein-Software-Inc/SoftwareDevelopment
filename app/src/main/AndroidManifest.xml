@@ -29,6 +29,9 @@
             android:name=".ReportPageActivity"
             android:label="Report Page" />
         <activity
+            android:name=".NotificationActivity"
+            android:label="Notification" />
+        <activity
             android:name=".CommentsActivity"
             android:exported="false" />
         <activity

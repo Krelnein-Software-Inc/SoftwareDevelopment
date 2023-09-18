@@ -17,6 +17,11 @@
         android:icon="@drawable/home"/>
 
     <item
+        android:id="@+id/nav_notification"
+        android:title="Notification"
+        android:icon="@drawable/baseline_notifications_24"/>
+
+    <item
         android:id="@+id/nav_report"
         android:title="Report"
         android:icon="@drawable/baseline_report_24"/>
