@@ -20,6 +20,8 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 onBackPressed();
             }
+
+            //test
         });
 
     }
