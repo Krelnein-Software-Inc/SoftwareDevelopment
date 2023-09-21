@@ -23,29 +23,30 @@ public class NotificationActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     DatabaseReference database;
-    AdapterActivity myAdapter;
-    List<NotificationItems> items;
+    MyAdapter myAdapter;
+    ArrayList<Users> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        recyclerView = findViewById(R.id.all_notification_list);
         database = FirebaseDatabase.getInstance().getReference("Posts");
         recyclerView.setHasFixedSize(true);
-
-        ImageView notificationBackButton = findViewById(R.id.notification_back_button);
-
-        RecyclerView recyclerView = findViewById(R.id.all_notification_list);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        list = new ArrayList<>();
+        myAdapter = new MyAdapter(this,list);
+        recyclerView.setAdapter(myAdapter);
 
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Posts posts = dataSnapshot.getValue(Posts.class);
-                    items.add(posts);
+                    Users users = dataSnapshot.getValue(Users.class);
+                    list.add(users);
                 }
                 myAdapter.notifyDataSetChanged();
 
@@ -56,23 +57,6 @@ public class NotificationActivity extends AppCompatActivity {
 
             }
         });
-
-        List<NotificationItems>itemsList = new ArrayList<>();
-        itemsList.add(new NotificationItems("Test Notification","Try lang", R.drawable.baseline_person_outline_24));
-        itemsList.add(new NotificationItems("Test Notification","Try lang", R.drawable.baseline_person_outline_24));
-        itemsList.add(new NotificationItems("Test Notification","Try lang", R.drawable.baseline_person_outline_24));
-
-
-        recyclerView.setAdapter(new AdapterActivity(getApplicationContext(),itemsList));
-
-        notificationBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-            //test
-        });
-
     }
 
 
